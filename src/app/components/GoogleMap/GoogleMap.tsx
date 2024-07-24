@@ -19,6 +19,7 @@ const GoogleMaps = () => {
   return (
     <>
     {/* C'est bug en version PC (ça s'affiche en dessous du footer) */}
+    {/* Refaire la page d'accueil */}
       <div>
         <img className="img-title" src="/Questions-bro.png" alt="" />
         <h1 className="map-title"> 🚗Où Nous Trouver</h1>
