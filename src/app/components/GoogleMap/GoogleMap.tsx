@@ -1,34 +1,30 @@
 'use client';
 
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import './GoogleMap.scss'; 
-
-
+import './GoogleMap.scss';
 
 const center = {
-  lat: 48.8566, // Latitude 
-  lng: 2.3522 // Longitude 
+  lat: 48.8566, // Latitude
+  lng: 2.3522, // Longitude
 };
 
 // Position du marqueur sur la carte (à Paris)
 const position = {
-  lat: 48.9266, 
-  lng: 2.1953 
+  lat: 48.9266,
+  lng: 2.1953,
 };
 
 // Composant GoogleMaps
 const GoogleMaps = () => {
   return (
     <>
-             <div>
-             <img className='img-title' src="/Questions-bro.png" alt="" />
-             <h1 className="map-title"> 🚗Où Nous Trouver</h1>
-             
-             </div>
-            
-          
-      <LoadScript googleMapsApiKey="AIzaSyDnEkjYkaAkVrNNzQ5ZU9Y3lU0LVNF6rBM">
+    {/* C'est bug en version PC (ça s'affiche en dessous du footer) */}
+      <div>
+        <img className="img-title" src="/Questions-bro.png" alt="" />
+        <h1 className="map-title"> 🚗Où Nous Trouver</h1>
+      </div>
 
+      <LoadScript googleMapsApiKey="AIzaSyDnEkjYkaAkVrNNzQ5ZU9Y3lU0LVNF6rBM">
         <GoogleMap
           mapContainerClassName="map-container"
           center={center} // Centre de la carte
@@ -38,8 +34,8 @@ const GoogleMaps = () => {
           <Marker position={position} />
         </GoogleMap>
       </LoadScript>
-      </>
+    </>
   );
 };
 
-export default GoogleMaps; 
+export default GoogleMaps;
