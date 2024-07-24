@@ -1,0 +1,180 @@
+.about-us {
+   background: linear-gradient(to top, #06796b, #efe6db); 
+  max-width: 50%;
+  padding: 2rem;
+  font-family: "Poetsen One", sans-serif;
+  color: #333;
+  background-color: white;
+  border-radius: 10px;
+  margin: 2rem ;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+
+  img{
+    width: 80%;
+    height: auto;
+    margin-left: 3rem;
+  }
+
+  h1 {
+    text-align: start;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #003f3e;
+  }
+
+  h2 {
+    text-align: start;
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    text-decoration: underline;
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #ffffff;
+  }
+
+  ul {
+    margin-left: 1.5rem;
+    list-style-type: disc;
+    color:#ffffff ;
+
+    li {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    strong {
+      color: #ffffff;
+    }
+  }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+  .about-us {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .about-us img {
+    width: 100%;
+    height: auto;
+    margin-left: 0;
+  }
+
+  .about-us h1 {
+    font-size: 2rem;
+    text-align: start;
+  }
+
+  .about-us h2 {
+    font-size: 1.5rem;
+    text-align: start;
+  }
+
+  .about-us p, .about-us ul {
+    font-size: 1rem;
+     text-align: start;
+  }
+
+  .about-us ul {
+    margin-left: 0;
+    padding-left: 1.5rem;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .about-us {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+
+  .about-us img {
+    width: 90%;
+    height: auto;
+    margin-left: 0;
+  }
+
+  .about-us h1 {
+    font-size: 2.25rem;
+  }
+
+  .about-us h2 {
+    font-size: 1.75rem;
+  }
+
+  .about-us p, .about-us ul {
+    font-size: 1.1rem;
+  }
+
+  .about-us ul {
+    margin-left: 1rem;
+    padding-left: 1.5rem;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .about-us {
+    max-width: 100%;
+  }
+
+  .about-us img {
+    width: 85%;
+    height: auto;
+  }
+
+  .about-us h1 {
+    font-size: 2.5rem;
+  }
+
+  .about-us h2 {
+    font-size: 2rem;
+  }
+
+  .about-us p, .about-us ul {
+    font-size: 1.2rem;
+  }
+
+  .about-us ul {
+    margin-left: 1.5rem;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px)  {
+  .about-us {
+    max-width: 50%;
+  }
+
+  .about-us img {
+    width: 
+    70%;
+    height: 40vh;
+    margin-left: 6rem;
+  }
+
+  .about-us h1 {
+    font-size: 2.5rem;
+  }
+
+  .about-us h2 {
+    font-size: 2rem;
+  }
+
+  .about-us p, .about-us ul {
+    font-size: 1.2rem;
+  }
+
+  .about-us ul {
+    margin-left: 1.5rem;
+  }
+}
+
+

@@ -1,0 +1,231 @@
+.navbar {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: white;
+  box-shadow: 0px 3px 3px lightgray;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 54px;
+  align-items: center;
+  z-index: 20;
+
+  &--pannel {
+    overflow: hidden;
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--logo {
+      position: relative;
+      z-index: 0;
+      height: 110px;
+    }
+
+    &--title {
+      font-size: 30px;
+      font-weight: bold;
+      font-family: 'Merriweather', serif;
+      transform: translateX(-110px);
+      z-index: 1;
+    }
+  }
+
+  &--navigation {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 50px;
+
+    &--link {
+      transform: translateX(-90px);
+    }
+
+    &--link:hover {
+      font-weight: bold;
+      color: #00a292;
+      content: 'nav name';
+    }
+
+    &--connected {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+
+      &--usericon {
+        border-radius: 100px;
+        border: solid #003f3e;
+        height: 40px;
+        width: 40px;
+      }
+
+      &--usericon:hover {
+        border: solid #00a292;
+      }
+    }
+
+    &--button:hover {
+      font-weight: bold;
+    }
+  }
+
+  &--mobilenav {
+    display: none;
+  }
+
+  @media only screen and (max-width: 600px) {
+  }
+
+  @media only screen and (max-width: 768px) {
+    &--navigation {
+      display: none;
+    }
+
+    &--mobilenav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 45px;
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    &--navigation {
+      gap: 2px;
+
+      &--link {
+        transform: translateX(-50px);
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1200px) {
+    &--navigation {
+      gap: 40px;
+
+      &--link {
+        transform: translateX(-60px);
+      }
+    }
+  }
+}
+
+.usermenuopen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  background-color: white;
+  border-radius: 5px;
+  height: 150px;
+  z-index: 60;
+  transform: translateY(110px);
+  box-shadow: 0px 3px 3px lightgray;
+  padding: 15px;
+
+  &--link:hover {
+    color: #00a292;
+    content: 'nav name';
+  }
+}
+
+.mobilemenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  z-index: 20;
+
+  &--navbar {
+    box-shadow: 0px 3px 3px lightgray;
+    width: 100vw;
+    height: 54px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 60;
+
+    &--mobilenav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 45px;
+    }
+  }
+
+  &--navigation {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-grow: 1;
+
+    &--user {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      &--icon {
+        border-radius: 100px;
+        border: solid #003f3e;
+        height: 125px;
+        width: 125px;
+      }
+
+      &--name {
+        font-size: 40px;
+        font-weight: bold;
+        color: #00a292;
+      }
+    }
+
+    &--links {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    &--link {
+      display: flex;
+      flex-direction: row;
+      font-size: 35px;
+      gap: 5px;
+    }
+
+    &--link:hover {
+      font-weight: bold;
+      color: #00a292;
+    }
+
+    &--disconnect {
+      margin-bottom: 100px;
+
+      &--title {
+        font-size: 30px;
+      }
+    }
+
+    &--disconnect:hover {
+      font-weight: bold;
+    }
+  }
+}
+
+.active {
+  color: #00a292;
+}

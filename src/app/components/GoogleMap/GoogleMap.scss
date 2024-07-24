@@ -1,0 +1,134 @@
+.map-container {
+  display: flex;
+  position: absolute;
+  border-radius: 10px;
+  width: 47%;
+  height: 60vh;
+  right: 20px;
+  top: 1600px;
+ 
+  }
+
+  .map-title {
+    display: flex;
+    position: absolute;
+    top: 110%;
+    left: 58%;
+    font-size: 4rem;
+    color: #ffffff;
+    padding-top: 10px;
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 1000;
+    font-style: normal;
+  }
+  
+  .img-title {
+    position: absolute;
+    top: 108%;
+    left: 86%;
+    width: 150px; 
+    height: auto;
+  }
+  
+  @media only screen and (min-width:360px) and (max-width: 767px) {
+    .map-container {
+      position: relative;
+      width: 100%;
+      height: 40vh;
+      right: auto;
+      top: auto;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  
+    .map-title {
+      position: relative;
+      display: block;
+      top: auto;
+      left: auto;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+  
+    .img-title {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    }
+  }
+  
+  
+  @media only screen and (min-width: 768px) and (max-width: 1199px) {
+    .map-container {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    right: auto;
+    top: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    }
+  
+    .map-title {
+      position: relative;
+      display: block;
+      top: auto;
+      left: auto;
+      font-size: 3rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+  
+    .img-title {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: 120px;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  
+  
+  @media only screen and (min-width: 1200px) and (max-width: 1919px) {
+    .map-container {
+        width: 45%;
+        height: 60vh;
+       
+    }
+
+    .map-title {
+        font-size: 3rem;
+    }
+
+    .img-title {
+        width: 100px;
+        margin-left: 7rem;
+    }
+}
+
+@media only screen and (min-width: 1920px) and (max-width: 2560px) {
+    .map-container {
+        width: 47%;
+        height: 70vh;
+        margin-top: 7rem;
+        
+    }
+
+    .map-title {
+        font-size: 4.5rem;
+       
+    }
+
+    .img-title {
+       max-width: 180px;
+       margin-left: 4rem;
+    }
+}
+  
+
+  

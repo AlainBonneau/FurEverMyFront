@@ -1,0 +1,29 @@
+.LoginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 30px;
+  padding: 50px;
+}
+
+.main-title {
+  width: 50%;
+  text-align: center;
+  font-weight: 100;
+  font-size: 28px;
+  padding: 20px;
+}
+
+.main-title-span {
+  font-weight: bold;
+  font-size: 32px;
+}
+
+@media screen and (max-width: 1200px) {
+  .LoginPage .main-title {
+    font-size: 2vw;
+  }
+}

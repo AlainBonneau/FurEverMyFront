@@ -1,0 +1,118 @@
+.detail-animal{
+    display: flex;
+    flex-direction: column;
+  
+  &-header{
+    background-color: #07A397;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+  
+  &-title{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+      }
+
+  &-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items:center;
+  }
+  &-image{
+    justify-content: center;
+  }
+ 
+  &-description{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+  }
+
+  .user-input {
+  width: 100%; 
+  max-width: 500px; 
+  input{
+    padding: 0 3rem 0 0;
+  }
+}
+}
+.btn-edit{
+  display: flex;
+  justify-content: right;
+  margin-bottom: 3rem;
+  margin-right: 6rem;
+}
+.btn-only{
+  margin: 1rem;
+}
+
+// Media query pour responsive
+@media (max-width: 768px) { // Pour les tablettes et les petits écrans
+    .detail-animal-content{
+      flex-direction: column;
+      justify-content: space-around;
+
+    }
+    .detail-animal-image{
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+    .detail-animal-description {
+      margin-top: 1rem;
+    }
+    .user-input {
+      padding: 1rem;
+    }
+    .btn-edit{
+      display: flex;
+      justify-content: center;
+      margin: 0;
+    }
+}
+
+  @media (max-width: 576px) { // Pour les smartphones
+    .detail-animal-content{
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .detail-animal-image{
+      justify-content: center;
+      margin: 2rem;
+    }
+    .detail-animal-description {
+      margin-bottom: 1rem;
+    }
+    .btn-edit{
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    .detail-animal-content {
+      height: 80vh;
+      flex-direction: row;
+      justify-content:center;
+      align-items: center;
+    }
+    .detail-animal-description {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding-left: 3rem;
+    }
+    .detail-left {
+      margin-right: 20px;
+    }
+  
+    .user-input {
+      padding: 10px;
+    }
+  } 

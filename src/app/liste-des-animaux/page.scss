@@ -1,0 +1,67 @@
+.list-animals {
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+
+  &-header {
+    background-color: #07a397;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  &-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+  }
+  &-input {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  &-card {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    column-gap: 20px;
+    padding: 25px;
+    justify-self: center;
+    align-self: center;
+  }
+}
+
+// Media query pour responsive
+@media (max-width: 768px) {
+  // Pour les tablettes et les petits écrans
+
+  .list-animals-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .list-animals-input {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  // Pour les smartphones
+  .list-animals-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .list-animals-input {
+    flex-direction: column;
+  }
+  .list-animals-card {
+    justify-content: center;
+  }
+}
