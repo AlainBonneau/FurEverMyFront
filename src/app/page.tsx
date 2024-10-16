@@ -58,8 +58,10 @@ function IndexPage() {
       </div>
 
       <Slider imageUrls={IMAGES} />
-      <About />
-      <GoogleMaps />
+      <div className='about-container'>
+        <About />
+        <GoogleMaps />
+      </div>
     </>
   );
 }

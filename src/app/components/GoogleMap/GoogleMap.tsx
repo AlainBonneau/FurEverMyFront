@@ -18,10 +18,9 @@ const position = {
 const GoogleMaps = () => {
   return (
     <>
-    {/* C'est bug en version PC (ça s'affiche en dessous du footer) */}
       <div>
         <img className="img-title" src="/Questions-bro.png" alt="" />
-        <h1 className="map-title"> 🚗Où Nous Trouver</h1>
+        <h1 className="map-title"> 🚗Où Nous Trouver🚗</h1>
       </div>
 
       <LoadScript googleMapsApiKey="AIzaSyDnEkjYkaAkVrNNzQ5ZU9Y3lU0LVNF6rBM">

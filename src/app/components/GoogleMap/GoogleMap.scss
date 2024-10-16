@@ -1,129 +1,104 @@
 .map-container {
   display: flex;
-  position: absolute;
   border-radius: 10px;
   width: 47%;
   height: 60vh;
-  right: 20px;
-  top: 1600px;
+  margin-right: 20px;
+  margin-top: 2rem;
 }
 
 .map-title {
-  display: flex;
-  position: absolute;
-  top: 110%;
-  left: 58%;
   font-size: 4rem;
-  color: #ffffff;
+  color: #000;
   padding-top: 10px;
   font-family: 'Poetsen One', sans-serif;
   font-weight: 1000;
   font-style: normal;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .img-title {
-  position: absolute;
-  top: 108%;
-  left: 86%;
+  display: block;
+  margin: 0 auto;
   width: 150px;
   height: auto;
+  margin-top: 1rem;
 }
 
 @media only screen and (min-width: 360px) and (max-width: 767px) {
   .map-container {
-    position: relative;
     width: 100%;
     height: 40vh;
-    right: auto;
-    top: auto;
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
 
   .map-title {
-    position: relative;
-    display: none; // Block par défaut.
-    top: auto;
-    left: auto;
     font-size: 2.5rem;
     text-align: center;
     margin-top: 1rem;
   }
 
   .img-title {
-    position: relative;
-    top: auto;
-    left: auto;
     width: 100px;
-    display: none; // Block par défaut.
     margin: 0 auto;
   }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
   .map-container {
-    position: relative;
     width: 100%;
     height: 50vh;
-    right: auto;
-    top: auto;
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
 
   .map-title {
-    position: relative;
-    display: none; // Block par défaut
-    top: auto;
-    left: auto;
     font-size: 3rem;
     text-align: center;
     margin-top: 1rem;
   }
 
   .img-title {
-    position: relative;
-    top: auto;
-    left: auto;
     width: 120px;
-    display: none; // Block par défaut.
     margin: 0 auto;
   }
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1919px) {
   .map-container {
-    width: 45%;
+    width: 80%;
     height: 60vh;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 
   .map-title {
     font-size: 3rem;
-    display: none; // Rien par défaut (à supprimer)
+    text-align: center;
+    margin-top: 1rem;
   }
 
   .img-title {
     width: 100px;
-    margin-left: 7rem;
-    display: none; // Rien par défaut (à supprimer)
   }
 }
 
 @media only screen and (min-width: 1920px) and (max-width: 2560px) {
   .map-container {
-    width: 47%;
+    width: 80%;
     height: 70vh;
     margin-top: 7rem;
+    margin-bottom: 7rem;
   }
 
   .map-title {
     font-size: 4.5rem;
-    display: none; // Rien par défaut (à supprimer)
+    text-align: center;
   }
 
   .img-title {
     max-width: 180px;
-    margin-left: 4rem;
-    display: none; // Rien par défaut (à supprimer)
   }
 }
