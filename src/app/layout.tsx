@@ -8,6 +8,8 @@ interface Props {
   readonly children: ReactNode;
 }
 
+import AuthProvider from '@/src/app/components/AuthProvider/AuthProvider';
+
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="fr">
@@ -18,11 +20,13 @@ export default function RootLayout({ children }: Props) {
       </head>
       <body>
         <StoreProvider>
-          <div id="page-container">
-            <NavBar />
-            <main id="content-wrap">{children}</main>
-            <Footer />
-          </div>
+          <AuthProvider>
+            <div id="page-container">
+              <NavBar />
+              <main id="content-wrap">{children}</main>
+              <Footer />
+            </div>
+          </AuthProvider>
         </StoreProvider>
       </body>
     </html>

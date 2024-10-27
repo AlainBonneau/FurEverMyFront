@@ -39,17 +39,17 @@ const IMAGES = [
 ];
 
 function IndexPage() {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const token = getFromSessionStorage() || getFromLocalStorage();
-    if (token) {
-      addTokenJwtToAxiosInstance(token);
-      const arrayToken = token.split('.');
-      const tokenPayload = JSON.parse(atob(arrayToken[1]));
-      dispatch(actionSetConnectedUser(tokenPayload));
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const token = getFromSessionStorage() || getFromLocalStorage();
+  //   if (token) {
+  //     addTokenJwtToAxiosInstance(token);
+  //     const arrayToken = token.split('.');
+  //     const tokenPayload = JSON.parse(atob(arrayToken[1]));
+  //     dispatch(actionSetConnectedUser(tokenPayload));
+  //   }
+  // }, [dispatch]);
 
   return (
     <>
