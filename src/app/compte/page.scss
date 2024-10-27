@@ -2,22 +2,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px;
+  padding: 25px;
 }
 
 .header {
-  font-size: 48px;
+  font-size: 32px;
   font-weight: bold;
-  padding: 50px;
+  padding: 20px;
 }
 
 .input-field {
   display: flex;
-  justify-content: center;
-  flex-direction: row;
+  align-items: center;
+  flex-direction: column;
   gap: 25px;
 
   &--div {
+    width: 85vw;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -25,28 +26,33 @@
 }
 
 .btn-only {
-  margin: 25px;
+  margin: 0;
+  margin-top: 20px;
+  width: 90%;
 }
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 769px) {
+/* Adjustments for large screens (tablets and computers) */
+@media only screen and (min-width: 770px) {
+  .account-page {
+    padding: 50px;
+  }
+
+  .header {
+    font-size: 48px;
+    padding: 50px;
+  }
+
   .input-field {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 25px;
+    flex-direction: row;
+    justify-content: center;
 
     &--div {
-      width: 85vw;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
+      width: auto;
     }
   }
 
   .btn-only {
-    margin: 0px;
-    margin-top: 20px;
-    width: 90%;
+    margin: 25px;
+    width: auto;
   }
 }

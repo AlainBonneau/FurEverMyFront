@@ -76,7 +76,7 @@ function ContactForm() {
           size="lg"
           className="login-button"
         >
-          Se connecter
+          Envoyer
         </Button>
         </div>
       </form>

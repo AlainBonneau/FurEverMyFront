@@ -1,9 +1,7 @@
 import { ReactNode } from 'react';
 import StoreProvider from './StoreProvider';
-
 import NavBar from './components/NavBar/NavBar';
 import { Footer } from './components/Footer/Footer';
-
 import './styles/globals.css';
 
 interface Props {
@@ -12,16 +10,21 @@ interface Props {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <StoreProvider>
-      <html lang="fr">
-        <body>
+    <html lang="fr">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+        <title>FurEverHome</title>
+      </head>
+      <body>
+        <StoreProvider>
           <div id="page-container">
             <NavBar />
             <main id="content-wrap">{children}</main>
             <Footer />
-          </div>          
-        </body>
-      </html>
-    </StoreProvider>
+          </div>
+        </StoreProvider>
+      </body>
+    </html>
   );
 }
