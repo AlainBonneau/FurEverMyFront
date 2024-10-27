@@ -14,4 +14,8 @@ export const actionLogIn = createAction<{
   avatar: string;
 }>('auth/LOGIN');
 
+export const actionSetConnectedUser = createAction<any>(
+  'auth/SET_CONNECTED_USER'
+);
 export const actionRememberMe = createAction<boolean>('auth/REMEMBER_ME');
+export const actionSetToken = createAction<string>('auth/SET_TOKEN');

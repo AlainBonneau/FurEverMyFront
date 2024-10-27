@@ -18,6 +18,13 @@ import image7 from 'public/img7.jpg';
 import image8 from 'public/img8.jpg';
 import image9 from 'public/img9.jpg';
 import './page.scss';
+import { getFromSessionStorage } from '../sessionStorage/sessionStorage';
+import { addTokenJwtToAxiosInstance } from '../lib/axios/axios';
+import {
+  actionSetConnectedUser,
+  actionSetToken,
+} from '../lib/actions/auth.action';
+import { getFromLocalStorage } from '../localstorage/localStorage';
 
 const IMAGES = [
   image1,
@@ -34,7 +41,15 @@ const IMAGES = [
 function IndexPage() {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const token = getFromSessionStorage() || getFromLocalStorage();
+    if (token) {
+      addTokenJwtToAxiosInstance(token);
+      const arrayToken = token.split('.');
+      const tokenPayload = JSON.parse(atob(arrayToken[1]));
+      dispatch(actionSetConnectedUser(tokenPayload));
+    }
+  }, [dispatch]);
 
   return (
     <>
