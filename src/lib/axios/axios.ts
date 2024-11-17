@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://project-fur-ever-home-back-9f2ff164644f.herokuapp.com/api/v2',
+  baseURL: 'http://localhost:9000/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },

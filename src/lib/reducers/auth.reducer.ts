@@ -5,10 +5,18 @@ import {
   actionLogIn,
   actionLogOut,
   actionRememberMe,
+  actionSetConnectedUser,
+  actionSetToken,
 } from '../actions/auth.action';
 import { thunkActionLogin, thunkActionRegister } from '../thunks/auth.thunk';
-import { clearLocalStorage } from '@/src/localstorage/localStorage';
-import { clearSessionStorage } from '@/src/sessionStorage/sessionStorage';
+import {
+  addToLocalStorage,
+  clearLocalStorage,
+} from '@/src/localstorage/localStorage';
+import {
+  addToSessionStorage,
+  clearSessionStorage,
+} from '@/src/sessionStorage/sessionStorage';
 
 // -- LE STATE INITIAL et son interface
 interface InitialState {
@@ -23,6 +31,7 @@ interface InitialState {
     firstname: string;
     role?: 'Bénévole' | 'Employé' | 'Admin';
   };
+  token?: string;
   remember: boolean;
   isloading: boolean;
   message: string;
@@ -41,6 +50,7 @@ const initialState: InitialState = {
     firstname: '',
     role: undefined,
   },
+  token: undefined,
   remember: false,
   isloading: false,
   message: '',
@@ -54,8 +64,16 @@ const loginReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionRememberMe, (state, action) => {
       state.remember = action.payload;
+      console.log('Token updated in state:', state.token); // Vérifiez que le state est mis à jour avec le token
+    })
+    .addCase(actionSetToken, (state, action) => {
+      state.token = action.payload;
+    })
+    .addCase(actionSetConnectedUser, (state, action) => {
+      state.connectedUser = action.payload;
     })
     .addCase(actionLogOut, (state) => {
+      state.token = undefined;
       state.connectedUser = {
         avatar: '',
         userId: 0,
@@ -84,10 +102,18 @@ const loginReducer = createReducer(initialState, (builder) => {
     .addCase(thunkActionLogin.fulfilled, (state, action) => {
       state.isloading = false;
       const token: string = action.payload;
+
+      // Parse le token pour extraire les données de l'utilisateur
       const arrayToken = token.split('.');
       const tokenPayload = JSON.parse(atob(arrayToken[1]));
       state.connectedUser = tokenPayload;
+      state.token = token;
+
+      // Stocker le token dans le stockage local ou session
+      addToSessionStorage(token);
+      addToLocalStorage(token); // uniquement si le "remember me" est coché
     })
+
     .addCase(thunkActionLogin.rejected, (state) => {
       state.isloading = false;
       state.message = 'erreur de connexion';

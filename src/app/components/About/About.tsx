@@ -4,7 +4,7 @@ import './About.scss';
 function About() {
   return (
     <div className="about-us">
-      <h1>À Propos de Fur Ever Home 🐶 </h1>
+      <h1> 🐶 À Propos de Fur Ever Home 🐶 </h1>
       <img src="/AnimalShelter.png" alt="" />
       <p>
         Bienvenue chez <strong>Fur Ever Home</strong>, votre refuge animalier

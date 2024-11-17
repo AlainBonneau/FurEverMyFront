@@ -2,14 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'react-feather';
-import Image,{ StaticImageData } from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 
 import './Slider.scss';
 
 type SliderProps = {
   imageUrls: StaticImageData[];
 };
-
 
 // eslint-disable-next-line import/prefer-default-export
 export function Slider({ imageUrls }: SliderProps) {
@@ -21,7 +20,6 @@ export function Slider({ imageUrls }: SliderProps) {
   // Utilisez useEffect pour obtenir la largeur de la première image une fois que le composant est monté
   useEffect(() => {
     if (scrollContainerRef.current) {
-
       // Obtenir la première image dans le conteneur
       const firstImage = scrollContainerRef.current.querySelector('.imgSlider');
       if (firstImage) {
@@ -32,15 +30,13 @@ export function Slider({ imageUrls }: SliderProps) {
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      // Défile de la largeur d'une image vers la gauche
-      scrollContainerRef.current.scrollLeft -= imageWidth;
+      scrollContainerRef.current.scrollLeft -= imageWidth + 10;
     }
   };
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-            // Défile de la largeur d'une image vers la droite
-      scrollContainerRef.current.scrollLeft += imageWidth;
+      scrollContainerRef.current.scrollLeft += imageWidth + 10;
     }
   };
 
@@ -53,12 +49,11 @@ export function Slider({ imageUrls }: SliderProps) {
         {/* Mappage des URLs des images pour les afficher */}
         {imageUrls.map((imageUrl, index) => (
           <Image
-            key={index} 
+            key={index}
             className="imgSlider"
             src={imageUrl}
             alt={`Image ${index}`}
           />
-          
         ))}
       </div>
       <button className="button btn2" type="button" onClick={scrollRight}>

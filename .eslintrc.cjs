@@ -13,6 +13,10 @@ module.exports = {
     'plugin:prettier/recommended', // must be the last one
   ],
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+  },
   overrides: [
     {
       files: ['src/**/reducers/*.ts'],

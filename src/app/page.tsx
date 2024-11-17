@@ -18,6 +18,13 @@ import image7 from 'public/img7.jpg';
 import image8 from 'public/img8.jpg';
 import image9 from 'public/img9.jpg';
 import './page.scss';
+import { getFromSessionStorage } from '../sessionStorage/sessionStorage';
+import { addTokenJwtToAxiosInstance } from '../lib/axios/axios';
+import {
+  actionSetConnectedUser,
+  actionSetToken,
+} from '../lib/actions/auth.action';
+import { getFromLocalStorage } from '../localstorage/localStorage';
 
 const IMAGES = [
   image1,
@@ -32,9 +39,17 @@ const IMAGES = [
 ];
 
 function IndexPage() {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  useEffect(() => {}, []);
+  // useEffect(() => {
+  //   const token = getFromSessionStorage() || getFromLocalStorage();
+  //   if (token) {
+  //     addTokenJwtToAxiosInstance(token);
+  //     const arrayToken = token.split('.');
+  //     const tokenPayload = JSON.parse(atob(arrayToken[1]));
+  //     dispatch(actionSetConnectedUser(tokenPayload));
+  //   }
+  // }, [dispatch]);
 
   return (
     <>
@@ -54,12 +69,14 @@ function IndexPage() {
       <div className="title">
         <img src="/AnimalImg.png" alt="" />
         <h1>FUR EVER HOME</h1>
-        <p>Bienvenue dans le site de gestion de tâche</p>
+        <p>Bienvenue sur le site de notre refuge</p>
       </div>
 
       <Slider imageUrls={IMAGES} />
-      <About />
-      <GoogleMaps />
+      <div className="about-container">
+        <About />
+        <GoogleMaps />
+      </div>
     </>
   );
 }

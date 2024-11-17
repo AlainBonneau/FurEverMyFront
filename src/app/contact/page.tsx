@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Input, Textarea } from '@nextui-org/react';
+import { Button, Input, Textarea } from '@nextui-org/react';
 
 import './page.scss';
 
@@ -68,7 +68,16 @@ function ContactForm() {
           className="input-field"
         />
         <div className="button-container">
-        <button className="send-button">Envoyer</button>
+        {/* <button className="send-button">Envoyer</button> */}
+        <Button
+          type="submit"
+          variant="ghost"
+          color="primary"
+          size="lg"
+          className="login-button"
+        >
+          Envoyer
+        </Button>
         </div>
       </form>
     </section>

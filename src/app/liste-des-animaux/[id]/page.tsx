@@ -22,7 +22,7 @@ import { actionLogIn } from '@/src/lib/actions/auth.action';
 import { addTokenJwtToAxiosInstance } from '@/src/lib/axios/axios';
 import Loader from '../../components/Loader/Loader';
 
-export default function DetailAnimal({ params }: { params: { id: string } }) {
+export default function DetailAnimal() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {}, []);
