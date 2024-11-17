@@ -69,7 +69,7 @@ function IndexPage() {
       <div className="title">
         <img src="/AnimalImg.png" alt="" />
         <h1>FUR EVER HOME</h1>
-        <p>Bienvenue dans le site de gestion de tâche</p>
+        <p>Bienvenue sur le site de notre refuge</p>
       </div>
 
       <Slider imageUrls={IMAGES} />
