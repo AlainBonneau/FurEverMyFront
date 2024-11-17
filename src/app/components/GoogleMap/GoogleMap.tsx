@@ -18,6 +18,7 @@ const position = {
 const GoogleMaps = () => {
   return (
     <>
+
       <div>
         <img className="img-title" src="/Questions-bro.png" alt="" />
         <h1 className="map-title"> 🚗Où Nous Trouver🚗</h1>
