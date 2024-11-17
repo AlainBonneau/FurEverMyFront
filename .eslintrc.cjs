@@ -1,3 +1,5 @@
+import { off } from 'process';
+
 /* eslint-env node */
 module.exports = {
   env: {
@@ -21,6 +23,17 @@ module.exports = {
     {
       files: ['src/**/reducers/*.ts'],
       rules: { 'no-param-reassign': ['error', { props: false }] },
+      'import/no-cycle': off,
+      'import/extensions': [
+        'error',
+        'ignorePackages',
+        {
+          js: 'never',
+          jsx: 'never',
+          ts: 'never',
+          tsx: 'never',
+        },
+      ],
     },
   ],
   plugins: ['react', '@typescript-eslint', 'prettier'],
