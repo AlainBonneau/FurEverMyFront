@@ -1,5 +1,3 @@
-import { off } from 'process';
-
 /* eslint-env node */
 module.exports = {
   env: {
