@@ -8,6 +8,7 @@ import { Button, Image, Input, Switch } from '@nextui-org/react';
 import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
 import './page.scss';
 import { actionThunkUserById } from '@/src/lib/thunks/user.thunk';
+import axiosInstance from '@/src/lib/axios/axios';
 import { Edit, Trash } from 'react-feather';
 
 function AccountPage() {
@@ -21,7 +22,7 @@ function AccountPage() {
     } else {
       dispatch(actionThunkUserById());
     }
-  }, []);
+  }, [userRole, dispatch]);
 
   const user = useAppSelector((state) => state.user.user);
 
@@ -45,7 +46,48 @@ function AccountPage() {
     setLeavingDate(user.leaving_date);
     setRole(user.role);
     setIsActive(user.is_active);
-  }, []);
+  }, [user]);
+
+  if (!user) {
+    return <div>Chargement...</div>;
+  }
+
+  async function updateUser(data: any) {
+    try {
+      const response = await axiosInstance.put('/users/patch', data); // Pas d'ID dans l'URL
+      return response.data;
+    } catch (error) {
+      console.error('Erreur API :', error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+
+    const updatedData = {
+      email,
+      lastname,
+      firstname,
+      birthdate,
+      password,
+      leaving_date: leavingDate,
+      role,
+      is_active: isActive,
+    };
+
+    try {
+      await updateUser(updatedData); // Appel au backend
+      setIsEditing(false);
+      setIsReadOnly(true);
+
+      // Optionnel : rafraîchir l'état local après une mise à jour réussie
+      dispatch(actionThunkUserById());
+    } catch (error) {
+      console.error('Failed to save changes:', error);
+      alert('Une erreur est survenue lors de la sauvegarde.');
+    }
+  };
 
   return (
     <form className="account-page">
@@ -169,15 +211,7 @@ function AccountPage() {
       </div>
       <div>
         {isEditing ? (
-          <Button
-            className="btn"
-            color="success"
-            onClick={(e) => {
-              e.preventDefault;
-              setIsReadOnly(true);
-              setIsEditing(false);
-            }}
-          >
+          <Button className="btn" color="success" onClick={handleSave}>
             Enregistrer
           </Button>
         ) : (
@@ -186,7 +220,7 @@ function AccountPage() {
               className="btn-only"
               color="warning"
               onClick={(e) => {
-                e.preventDefault;
+                e.preventDefault();
                 setIsReadOnly(false);
                 setIsEditing(true);
               }}
