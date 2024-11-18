@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:9000/api/v1', // Changer une fois le déploiement en production
+  baseURL: 'https://fureverhome-backend-c50cba18c4a6.herokuapp.com/api/v1', // Changer une fois le déploiement en production
   headers: {
     'Content-Type': 'application/json',
   },
