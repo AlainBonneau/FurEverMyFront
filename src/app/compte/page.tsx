@@ -10,6 +10,7 @@ import './page.scss';
 import { actionThunkUserById } from '@/src/lib/thunks/user.thunk';
 import axiosInstance from '@/src/lib/axios/axios';
 import { Edit, Trash } from 'react-feather';
+import axios from 'axios';
 
 function AccountPage() {
   const dispatch = useAppDispatch();
@@ -57,12 +58,16 @@ function AccountPage() {
       const response = await axiosInstance.put('/users/patch', data); // Pas d'ID dans l'URL
       return response.data;
     } catch (error) {
-      console.error('Erreur API :', error.response?.data || error.message);
+      if (axios.isAxiosError(error)) {
+        console.error('Erreur API :', error.response?.data || error.message);
+      } else {
+        console.error('Erreur inconnue :', error);
+      }
       throw error;
     }
   }
 
-  const handleSave = async (e) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const updatedData = {
@@ -77,7 +82,7 @@ function AccountPage() {
     };
 
     try {
-      await updateUser(updatedData); // Appel au backend
+      await updateUser(updatedData);
       setIsEditing(false);
       setIsReadOnly(true);
 
