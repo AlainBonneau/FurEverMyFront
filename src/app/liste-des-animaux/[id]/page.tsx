@@ -105,7 +105,7 @@ export default function DetailAnimal() {
                 isZoomed
                 width={360}
                 alt={animal.name}
-                src={animal.avatar}
+                src={`/${animal.avatar}`}
               />
             </div>
             <div className="detail-animal-description">

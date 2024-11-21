@@ -55,7 +55,7 @@ function AccountPage() {
 
   async function updateUser(data: any) {
     try {
-      const response = await axiosInstance.put('/users/patch', data); // Pas d'ID dans l'URL
+      const response = await axiosInstance.put('/users/patch', data);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -77,7 +77,7 @@ function AccountPage() {
       birthdate,
       password,
       leaving_date: leavingDate,
-      role,
+      // role,
       is_active: isActive,
     };
 
@@ -154,7 +154,7 @@ function AccountPage() {
             onChange={(e) => setBirthdate(e.target.value)}
           />
           <Input
-            isReadOnly={isReadOnly}
+            isReadOnly
             size="lg"
             type={isReadOnly ? 'password' : 'text'}
             label="Mot de passe"
@@ -162,7 +162,7 @@ function AccountPage() {
             placeholder={isReadOnly ? '' : user.password}
             name="password"
             value={isReadOnly ? user.password : password}
-            onChange={(e) => setPassword(e.target.value)}
+            // onChange={(e) => setPassword(e.target.value)}
           />
 
           {userRole === 'Admin' && (
@@ -192,7 +192,7 @@ function AccountPage() {
                 value={user.leaving_date}
               />
               <Input
-                isReadOnly={isReadOnly}
+                isReadOnly
                 size="lg"
                 type="text"
                 label="Role"
@@ -200,7 +200,7 @@ function AccountPage() {
                 placeholder={isReadOnly ? '' : user.role}
                 name="role"
                 value={isReadOnly ? user.role : role}
-                onChange={(e) => setRole(e.target.value)}
+                // onChange={(e) => setRole(e.target.value)}
               />
               <Switch
                 isReadOnly={isReadOnly}

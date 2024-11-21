@@ -146,7 +146,7 @@ function NavBar() {
           <div className="navbar--navigation--connected">
             <button onClick={() => setUserMenuOpen(!userMenuOpen)}>
               <img
-                src={avatar ? avatar : 'users/profile-default.svg'}
+                src={avatar ? `/${avatar}` : '/users/profile-default.svg'}
                 alt="Icon utilisateur"
                 className="navbar--navigation--connected--usericon"
               />
@@ -221,7 +221,7 @@ function NavBar() {
             {role && (
               <div className="mobilemenu--navigation--user">
                 <img
-                  src={avatar ? avatar : 'users/profile-default.svg'}
+                  src={avatar ? `/${avatar}` : '/users/profile-default.svg'}
                   alt="Icon utilisateur"
                   className="mobilemenu--navigation--user--icon"
                 />
