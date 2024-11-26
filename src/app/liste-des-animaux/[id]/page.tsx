@@ -22,6 +22,24 @@ import { actionLogIn } from '@/src/lib/actions/auth.action';
 import { addTokenJwtToAxiosInstance } from '@/src/lib/axios/axios';
 import Loader from '../../components/Loader/Loader';
 
+function formatDateForInput(dateString: string | number | Date) {
+  if (!dateString) return ''; // Retourne une chaîne vide si aucune date n'est fournie
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Mois commence à 0
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`; // Format yyyy-MM-dd
+}
+
+function formatDateForDisplay(dateString: string | number | Date) {
+  if (!dateString) return ''; // Retourne une chaîne vide si aucune date n'est fournie
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Mois commence à 0
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${day}/${month}/${year}`; // Format jj/mm/aaaa
+}
+
 export default function DetailAnimal() {
   const dispatch = useAppDispatch();
 
@@ -46,6 +64,18 @@ export default function DetailAnimal() {
 
   const animal: IAnimal = useAppSelector((state) => state.animal.animal);
   const role = useAppSelector((state) => state.auth.connectedUser.role);
+
+  useEffect(() => {
+    if (animal) {
+      setName(animal.name || '');
+      setBirthdate(formatDateForInput(animal.birthdate) || '');
+      setHealth(animal.health || '');
+      setArrivalDate(formatDateForInput(animal.arrival_date) || '');
+      setleavingDate(formatDateForInput(animal.leaving_date) || '');
+      setDescription(animal.about || '');
+      setIsActiv(animal.is_active || true);
+    }
+  }, [animal]);
 
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
@@ -178,23 +208,37 @@ export default function DetailAnimal() {
                   type="date"
                   label="Date d'arrivée"
                   labelPlacement="outside"
-                  placeholder={isReadOnly ? '' : animal.arrival_date}
+                  placeholder={
+                    isReadOnly ? '' : formatDateForDisplay(animal.arrival_date)
+                  }
                   name="arrival-date"
-                  value={isReadOnly ? animal.arrival_date : arrivalDate}
+                  value={
+                    isReadOnly
+                      ? formatDateForInput(animal.arrival_date)
+                      : arrivalDate
+                  }
                   onChange={(e) => setArrivalDate(e.target.value)}
                   className="user-input"
                 />
+
                 <Input
                   isReadOnly={isReadOnly}
                   type="date"
                   label="Date de sortie"
                   labelPlacement="outside"
-                  placeholder={isReadOnly ? '' : animal.leaving_date}
+                  placeholder={
+                    isReadOnly ? '' : formatDateForDisplay(animal.leaving_date)
+                  }
                   name="leaving-date"
-                  value={isReadOnly ? animal.leaving_date : leavingDate}
+                  value={
+                    isReadOnly
+                      ? formatDateForInput(animal.leaving_date)
+                      : leavingDate
+                  }
                   onChange={(e) => setleavingDate(e.target.value)}
                   className="user-input"
                 />
+
                 <Textarea
                   isReadOnly={isReadOnly}
                   type="text"
