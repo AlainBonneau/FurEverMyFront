@@ -9,6 +9,7 @@ import './page.scss';
 import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
 import {
   actionThunkUserList,
+  actionUserAdd,
   actionUserSoftDelete,
 } from '@/src/lib/thunks/user.thunk';
 import { actionSetUser } from '@/src/lib/actions/user.action';

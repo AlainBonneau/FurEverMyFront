@@ -16,6 +16,11 @@ const actionThunkUserById = createAsyncThunk(
   }
 );
 
+const actionUserAdd = createAsyncThunk('user/ADD', async () => {
+  await axiosInstance.post('/user/add');
+  return 'succesful add';
+});
+
 const actionUserSoftDelete = createAsyncThunk(
   'user/DELETE',
   async (_, thunkAPI) => {
@@ -27,4 +32,4 @@ const actionUserSoftDelete = createAsyncThunk(
   }
 );
 
-export { actionThunkUserList, actionThunkUserById, actionUserSoftDelete };
+export { actionThunkUserList, actionThunkUserById, actionUserSoftDelete, actionUserAdd };
