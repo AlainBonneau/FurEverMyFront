@@ -99,6 +99,10 @@ export default function DetailAnimal() {
     setIsEditing(false);
   };
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   const isLoading = useAppSelector((state) => state.animal.isloading);
 
   if (isLoading) {
@@ -265,7 +269,12 @@ export default function DetailAnimal() {
           {(role === 'Employé' || role === 'Admin') && (
             <div className="btn-edit">
               {isEditing ? (
-                <Button type="submit" className="btn-only" color="success">
+                <Button
+                  type="submit"
+                  className="btn-only"
+                  color="success"
+                  onClick={refreshPage}
+                >
                   Enregistrer
                 </Button>
               ) : (
