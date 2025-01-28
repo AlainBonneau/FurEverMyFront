@@ -1,29 +1,63 @@
-# Redux Toolkit TypeScript Example
+# FurEverHome 🐾
 
-This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
+Bienvenue sur **FurEverHome**, une application web conçue pour gérer un refuge pour animaux. Ce projet met en avant des fonctionnalités de gestion des animaux, des utilisateurs, et des tâches au sein d'une structure moderne et intuitive. L'objectif principal de **FurEverHome** est de simplifier la gestion quotidienne d'un refuge grâce à une interface ergonomique et des outils efficaces.
 
-**Redux Toolkit**(also known as "RTK" for short) provides a standardized way to write Redux logic. It includes utilities that help simplify many common use cases, including [store setup](https://redux-toolkit.js.org/api/configureStore), [creating reducers and writing immutable update logic](https://redux-toolkit.js.org/api/createreducer), and even [creating entire "slices" of state at once](https://redux-toolkit.js.org/api/createslice). This example showcases each of these features in conjunction with Next.js.
+---
 
-## Deploy Your Own
+## 📂 Structure du projet
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+Le projet est divisé en deux principales parties : 
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-redux&project-name=with-redux&repository-name=with-redux)
+1. **Frontend** (interface utilisateur) :
+   - Développé avec **React.js** et **Next.js** pour une expérience utilisateur dynamique et rapide.
+   - Gestion de l'état centralisée avec **Redux Toolkit**.
+   - Utilisation de **TypeScript** pour un code fiable et robuste.
+   - Interface stylisée avec **SCSS** et composants modulaires.
 
-## How to Use
+2. **Backend** (API REST) :
+   - Développé avec **Node.js** et **Express.js**.
+   - Base de données relationnelle gérée avec **PostgreSQL** et **Sequelize** (ORM).
+   - Authentification sécurisée avec **JWT** (JSON Web Tokens).
+   - Validation des entrées utilisateur via **Joi**.
+   - Sécurisation contre les attaques XSS avec **sanitize-html**.
+   - lien du repo : https://github.com/AlainBonneau/FurEverMy
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+---
 
-```bash
-npx create-next-app --example with-redux with-redux-app
-```
+## ⚙️ Technologies utilisées
 
-```bash
-yarn create next-app --example with-redux with-redux-app
-```
+### Frontend
+- **React.js** : Framework pour construire des interfaces utilisateur dynamiques.
+- **Next.js** : Framework basé sur React pour le SSR (Server-Side Rendering) et le routage.
+- **TypeScript** : Superset de JavaScript, ajoutant un typage statique.
+- **Redux Toolkit** : Gestion de l'état global.
+- **SCSS** : Pour des styles modulaires et maintenables.
 
-```bash
-pnpm create next-app --example with-redux with-redux-app
-```
+### Backend
+- **Node.js** : Runtime JavaScript côté serveur.
+- **Express.js** : Framework pour créer des APIs REST.
+- **Sequelize** : ORM pour simplifier la gestion des relations dans la base de données.
+- **PostgreSQL** : Base de données relationnelle robuste.
+- **JWT** : Sécurisation des sessions et authentification.
+- **bcrypt** : Hachage sécurisé des mots de passe.
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+### Outils
+- **Mocodo** : Utilisé pour concevoir le modèle relationnel de la base de données.
+- **Axios** : Requêtes HTTP entre le frontend et le backend.
+
+---
+
+## 📑 Fonctionnalités principales
+
+- **Gestion des animaux** :
+  - Ajout, modification, visualisation et désactivation des fiches des animaux.
+  - Association des animaux à une espèce et une race.
+
+- **Gestion des utilisateurs** :
+  - Gestion des employés et administrateurs du refuge.
+  - Authentification et rôles (employé/admin).
+
+- **Gestion des tâches** :
+  - Assignation des tâches aux utilisateurs et aux animaux.
+  - Suivi de l'état des tâches (en cours, terminées, etc.).
+

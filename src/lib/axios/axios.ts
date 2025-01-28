@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://fureverhome-backend-c50cba18c4a6.herokuapp.com/api/v1',
+  // Ip local ou public de l'API
+  baseURL: 'https://fureverhome-backend-c50cba18c4a6.herokuapp.com/v1',
   headers: {
     'Content-Type': 'application/json',
   },
