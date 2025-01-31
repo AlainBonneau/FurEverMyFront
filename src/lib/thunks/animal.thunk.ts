@@ -18,8 +18,6 @@ const actionThunkAnimalById = createAsyncThunk(
     const response = await axiosInstance.get(
       `/animals/${state.animal.animal.id}`
     );
-    console.log(response.data);
-
     return response.data;
   }
 );
@@ -61,11 +59,11 @@ const actionThunkUpdateAnimal = createAsyncThunk(
         is_active: state.animal.animal.is_active,
       }
     );
-    console.log(response.data);
     return response.data;
   }
 );
 
+// action pour supprimer un animal
 const actionThunkSoftDeleteAnimal = createAsyncThunk(
   'animal/SOFTDELETE_ANIMAL',
   async (_, thunkAPI) => {
@@ -74,7 +72,6 @@ const actionThunkSoftDeleteAnimal = createAsyncThunk(
       `/animals/${state.animal.animal.id}`,
       { is_active: false }
     );
-    console.log(response.data);
     return response.data;
   }
 );

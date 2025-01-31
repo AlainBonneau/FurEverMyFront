@@ -65,7 +65,6 @@ const loginReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionRememberMe, (state, action) => {
       state.remember = action.payload;
-      console.log('Token updated in state:', state.token); // Vérifiez que le state est mis à jour avec le token
     })
     .addCase(actionSetToken, (state, action) => {
       state.token = action.payload;

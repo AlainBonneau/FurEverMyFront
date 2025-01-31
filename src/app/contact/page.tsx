@@ -68,7 +68,6 @@ function ContactForm() {
           className="input-field"
         />
         <div className="button-container">
-        {/* <button className="send-button">Envoyer</button> */}
         <Button
           type="submit"
           variant="ghost"

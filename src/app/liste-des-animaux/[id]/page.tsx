@@ -23,21 +23,21 @@ import { addTokenJwtToAxiosInstance } from '@/src/lib/axios/axios';
 import Loader from '../../components/Loader/Loader';
 
 function formatDateForInput(dateString: string | number | Date) {
-  if (!dateString) return ''; // Retourne une chaîne vide si aucune date n'est fournie
+  if (!dateString) return '';
   const date = new Date(dateString);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Mois commence à 0
+  const month = String(date.getMonth() + 1).padStart(2, '0'); 
   const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`; // Format yyyy-MM-dd
+  return `${year}-${month}-${day}`;
 }
 
 function formatDateForDisplay(dateString: string | number | Date) {
-  if (!dateString) return ''; // Retourne une chaîne vide si aucune date n'est fournie
+  if (!dateString) return '';
   const date = new Date(dateString);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Mois commence à 0
+  const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  return `${day}/${month}/${year}`; // Format jj/mm/aaaa
+  return `${day}/${month}/${year}`;
 }
 
 export default function DetailAnimal() {
@@ -80,8 +80,6 @@ export default function DetailAnimal() {
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [health, setHealth] = useState('');
-  /* const [species, setSpecies] = useState('');
-  const [breed, setBreed] = useState(''); */
   const [arrivalDate, setArrivalDate] = useState('');
   const [leavingDate, setleavingDate] = useState('');
   const [description, setDescription] = useState('');
@@ -175,25 +173,6 @@ export default function DetailAnimal() {
                   onChange={(e) => setBirthdate(e.target.value)}
                   className="user-input"
                 />
-                {/* <Input
-                  isReadOnly={isReadOnly}
-                  type="text"
-                  label="Race"
-                  name="breed"
-                  value={breed}
-                  onChange={(e) => setBreed(e.target.value)}
-                  className="user-input"
-                />
-
-                <Input
-                  isReadOnly={isReadOnly}
-                  type="text"
-                  label="Espèce"
-                  name="species"
-                  value={species}
-                  onChange={(e) => setSpecies(e.target.value)}
-                  className="user-input"
-                /> */}
               </div>
               <div className="detail-right">
                 <Input

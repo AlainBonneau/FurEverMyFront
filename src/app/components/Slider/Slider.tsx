@@ -12,15 +12,12 @@ type SliderProps = {
 
 // eslint-disable-next-line import/prefer-default-export
 export function Slider({ imageUrls }: SliderProps) {
-  // Utilisation de useRef pour obtenir une référence au conteneur défilable
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const [imageWidth, setImageWidth] = useState<number>(0);
 
-  // Utilisez useEffect pour obtenir la largeur de la première image une fois que le composant est monté
   useEffect(() => {
     if (scrollContainerRef.current) {
-      // Obtenir la première image dans le conteneur
       const firstImage = scrollContainerRef.current.querySelector('.imgSlider');
       if (firstImage) {
         setImageWidth(firstImage.clientWidth);
@@ -46,7 +43,6 @@ export function Slider({ imageUrls }: SliderProps) {
         <ArrowLeft />
       </button>
       <div className="scroll-container" ref={scrollContainerRef}>
-        {/* Mappage des URLs des images pour les afficher */}
         {imageUrls.map((imageUrl, index) => (
           <Image
             key={index}

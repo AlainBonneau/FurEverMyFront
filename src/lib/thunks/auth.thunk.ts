@@ -6,28 +6,26 @@ import axiosInstance, { addTokenJwtToAxiosInstance } from '../axios/axios';
 import { RootState } from '../store';
 import { addToSessionStorage } from '@/src/sessionStorage/sessionStorage';
 
+// action thunk pour la connexion
 const thunkActionLogin = createAsyncThunk(
   'login/LOGIN_CHECK',
   async (_, thunkAPI) => {
-    // Récupération du state dans notre thunk
     const state = thunkAPI.getState() as RootState;
-    // Appel de l'api via axios
     const response = await axiosInstance.post('/auth/login', {
       email: state.auth.credentials.email,
       password: state.auth.credentials.password,
     });
     const { tokenJWT, refreshTokenJWT } = response.data;
-    // Gestion du token et refreshToken dans leur storage respectif 
     addTokenJwtToAxiosInstance(tokenJWT);
     if (state.auth.remember) {
       addToLocalStorage(refreshTokenJWT);
     }
     addToSessionStorage(tokenJWT);
-    // Renvoie uniquement le token au reducer pour recupérer les données de l'utilisateur
     return tokenJWT;
   }
 );
 
+// action thunk pour l'inscription
 const thunkActionRegister = createAsyncThunk(
   'login/REGISTER',
   async (_, thunkAPI) => {

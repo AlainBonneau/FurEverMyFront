@@ -32,7 +32,6 @@ export default function AnimalsListPage() {
   const inputFilter = useAppSelector((state) => state.animal.inputFilter);
 
   const animals: IAnimal[] = useAppSelector((state) => state.animal.animalList);
-  console.log(animals);
 
   const isLoading = useAppSelector((state) => state.animal.isloading);
 

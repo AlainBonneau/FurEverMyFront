@@ -85,8 +85,6 @@ function AccountPage() {
       await updateUser(updatedData);
       setIsEditing(false);
       setIsReadOnly(true);
-
-      // Optionnel : rafraîchir l'état local après une mise à jour réussie
       dispatch(actionThunkUserById());
     } catch (error) {
       console.error('Failed to save changes:', error);
@@ -162,7 +160,6 @@ function AccountPage() {
             placeholder={isReadOnly ? '' : user.password}
             name="password"
             value={isReadOnly ? user.password : password}
-            // onChange={(e) => setPassword(e.target.value)}
           />
 
           {userRole === 'Admin' && (
@@ -200,7 +197,6 @@ function AccountPage() {
                 placeholder={isReadOnly ? '' : user.role}
                 name="role"
                 value={isReadOnly ? user.role : role}
-                // onChange={(e) => setRole(e.target.value)}
               />
               <Switch
                 isReadOnly={isReadOnly}

@@ -15,7 +15,6 @@ import {
   actionThunkSoftDeleteAnimal,
   actionThunkUpdateAnimal,
 } from '../thunks/animal.thunk';
-import { stat } from 'fs';
 
 // -- LE STATE INITIAL
 interface InitialState {

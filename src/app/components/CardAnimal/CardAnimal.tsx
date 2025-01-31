@@ -17,7 +17,6 @@ export default function CardAnimal({ animal }: CardAnimalProps) {
     <Card
       shadow="sm"
       isPressable
-      onPress={() => console.log('item pressed')}
       className="w-[300px] aspect-[3/4]"
     >
       <CardBody className="overflow-visible p-0">

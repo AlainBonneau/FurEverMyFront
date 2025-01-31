@@ -46,12 +46,9 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
   const [role, setRole] = useState('');
 
   const [nameValue, setNameValue] = useState('');
-  /* const [speciesValue, setSpeciesValue] = useState(''); */
   const [genderValue, setGenderValue] = useState('');
-  /* const [breedValue, setBreedValue] = useState(''); */
   const [diseaseValue, setDiseaseValue] = useState('');
   const [textAreaValue, setTextAreaValue] = useState('');
-  /* const [imgValue, setImgValue] = useState(''); */
 
   return (
     <div className="overlay">
@@ -225,36 +222,6 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
                 <SelectItem key={gender.key}>{gender.label}</SelectItem>
               )}
             </Select>
-            {/* <Input
-              isRequired
-              labelPlacement="outside"
-              placeholder="Espece"
-              label="Espece"
-              type="select"
-              className="input-field"
-              id="species-profil-form"
-              name="species"
-              aria-label="species"
-              value={speciesValue}
-              onChange={(e) => {
-                setSpeciesValue(e.target.value);
-              }}
-            /> */}
-            {/* <Input
-              isRequired
-              labelPlacement="outside"
-              placeholder="Race"
-              label="Race"
-              type="select"
-              className="input-field"
-              id="breed-profil-form"
-              name="breed"
-              aria-label="breed"
-              value={breedValue}
-              onChange={(e) => {
-                setBreedValue(e.target.value);
-              }}
-            /> */}
             <Input
               labelPlacement="outside"
               placeholder="Pathologie"
@@ -323,21 +290,6 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
                 setTextAreaValue(e.target.value);
               }}
             />
-
-            {/* <Input
-              isRequired
-              labelPlacement="outside"
-              label="Ajouter une photo"
-              type="file"
-              className="picture-field"
-              id="photo-profil-form"
-              name="photo"
-              aria-label="photo"
-              value={imgValue}
-              onChange={(e) => {
-                setImgValue(e.target.value);
-              }}
-            /> */}
           </>
         )}
 

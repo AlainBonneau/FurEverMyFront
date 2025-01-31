@@ -50,7 +50,7 @@ function AnimalEdit() {
         <button
           className="add-animal-button"
           onClick={() => {
-            setIsModalOpen(!isModalOpen); // si isModalOpen était vrai, après avoir cliqué sur le bouton, il deviendra faux, et inversment
+            setIsModalOpen(!isModalOpen);
           }}
         >
           {isModalOpen ? 'Fermer la modal' : 'Ajouter un animal'}
