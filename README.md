@@ -20,7 +20,7 @@ Le projet est divisé en deux principales parties :
    - Authentification sécurisée avec **JWT** (JSON Web Tokens).
    - Validation des entrées utilisateur via **Joi**.
    - Sécurisation contre les attaques XSS avec **sanitize-html**.
-   - lien du repo : https://github.com/AlainBonneau/FurEverMy
+   - Lien du repo : https://github.com/AlainBonneau/FurEverMy
 
 ---
 
