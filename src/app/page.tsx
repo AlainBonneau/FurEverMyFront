@@ -53,6 +53,7 @@ function IndexPage() {
 
   return (
     <>
+      <div className="logo-container">
       <div className="logo">
         <Image
           src="/Logo.png"
@@ -65,6 +66,20 @@ function IndexPage() {
             left: '20px',
           }}
         />
+      </div>
+      <div className="logo">
+        <Image
+          src="/Logo.png"
+          alt="logo"
+          width={200}
+          height={500}
+          style={{
+            borderRadius: '50%',
+            position: 'absolute',
+            left: '20px',
+          }}
+        />
+      </div>
       </div>
       <div className="title">
         <img src="/AnimalImg.png" alt="" />

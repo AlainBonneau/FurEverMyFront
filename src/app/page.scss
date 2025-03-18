@@ -1,3 +1,6 @@
+/*****************************************
+ * Animation Fade In Up
+ *****************************************/
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -5,167 +8,209 @@
   }
   to {
     opacity: 1;
-    transform: translateY(0px);
+    transform: translateY(0);
+  }
+}
+
+.logo-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.logo {
+  display: inline-block;
+  position: relative;
+  border-radius: 50%;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 63, 62, 0.4);
   }
 }
 
 .title {
-  // background: linear-gradient(to left, #b0f5ee, #05a293);
-  background-color: #003f3e;
-  max-width: 70%;
-  border: solid 2px #ffff;
-  border-radius: 10px;
-  box-shadow: 20px 20px 20px rgb(33, 138, 138);
+  position: relative;
+  max-width: 80%;
+  margin: 40px auto 20px;
+  padding: 20px;
+  border: 2px solid #fff;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #003f3e 0%, #005a58 100%);
+  box-shadow: 0 10px 25px rgba(0, 63, 62, 0.3);
+
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  margin: 20px auto;
-  padding: 10px;
-  font-family: 'Poetsen One', sans-serif;
-  font-weight: 1000;
-  font-style: normal;
+  justify-content: center;
 
-  .title h1,
+  h1,
   p {
-    animation: fadeInUp 2s ease-out forwards;
-  }
-
-  img {
-    position: absolute;
-    top: 10%;
-    left: 75%;
-    width: 170px;
-    height: auto;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 2px;
+    animation: fadeInUp 1s ease-out forwards;
+    margin: 0;
   }
 
   h1 {
     font-size: 4rem;
-    color: #ffffff;
-    letter-spacing: 3px;
-    text-align: center;
-    margin: 0;
-    padding-top: 10px;
-    animation: fadeInUp 2s ease-out forwards;
+    font-family: 'Poetsen One', sans-serif;
+    font-weight: 1000;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    animation-delay: 0.2s;
   }
 
   p {
-    font-size: 1.25rem;
-    color: #ffffff;
-    text-align: center;
-    letter-spacing: 2px;
-    margin: 10px 0 0 0;
+    font-size: 1.3rem;
+    margin-top: 0;
+    font-style: italic;
+    animation-delay: 0.4s;
+  }
+
+  img {
+    position: absolute;
+    width: 160px;
+    height: auto;
+    top: 20px;
+    right: 40px;
+
+    transition: transform 0.3s ease;
+    &:hover {
+      transform: scale(1.1) rotate(2deg);
+    }
   }
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 360px) and (max-width: 767px) {
+.about-container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Extra Small devices (max-width: 360px) */
+@media (max-width: 360px) {
   .title {
-    margin-top: 14rem;
+    max-width: 90%;
+    margin-top: 60px;
+    padding: 15px;
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    img {
+      width: 100px;
+      right: 20px;
+    }
   }
 
   .logo {
-    position: relative;
-    bottom: 180px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 120px;
+  }
+}
+
+/* Small devices (361px <= width <= 767px) */
+@media (min-width: 361px) and (max-width: 767px) {
+  .title {
+    margin-top: 80px;
+    padding: 15px;
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+
+    img {
+      width: 120px;
+      right: 30px;
+    }
+  }
+
+  .logo {
+    width: 140px;
+  }
+}
+
+/* Medium devices (768px <= width <= 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .title {
+    margin-top: 100px;
+    padding: 20px;
+
+    h1 {
+      font-size: 3.5rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+    }
+
+    img {
+      width: 130px;
+      right: 35px;
+    }
+  }
+
+  .logo {
     width: 150px;
   }
-
-  .title img {
-    width: 0;
-  }
-
-  .title h1 {
-    font-size: 3rem;
-  }
-
-  .title p {
-    font-size: 1rem;
-  }
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) and (max-width: 991px) {
+/* Large devices (992px <= width <= 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
   .title {
-    margin-top: 14rem;
+    margin-top: 120px;
+
+    h1 {
+      font-size: 3.6rem;
+    }
+
+    p {
+      font-size: 1.25rem;
+    }
+
+    img {
+      width: 140px;
+      right: 40px;
+    }
   }
 
   .logo {
-    position: relative;
-    bottom: 220px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 190px;
-  }
-
-  .title img {
-    width: 0;
-  }
-
-  .title h1 {
-    font-size: 3.5rem;
-  }
-
-  .title p {
-    font-size: 1.1rem;
+    width: 180px;
   }
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
+/* Extra large devices (min-width: 1200px) */
+@media (min-width: 1200px) {
   .title {
-    margin-top: 14rem;
+    margin-top: 140px;
+
+    h1 {
+      font-size: 4rem;
+    }
+
+    p {
+      font-size: 1.3rem;
+    }
+
+    img {
+      width: 160px;
+      right: 40px;
+    }
   }
 
   .logo {
-    position: relative;
-    bottom: 220px;
-    left: 50%;
-    transform: translateX(-50%);
     width: 200px;
-  }
-
-  .title img {
-    width: 0;
-  }
-
-  .title h1 {
-    font-size: 4rem;
-  }
-
-  .title p {
-    font-size: 1.25rem;
-  }
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-  .logo {
-    position: relative;
-    bottom: 10px;
-    left: 110px;
-    transform: translateX(-50%);
-    width: 250px;
-    max-width: 250px;
-  }
-
-  .title img {
-    position: absolute;
-    top: 100px;
-    max-width: 140px;
-  }
-
-  .title h1 {
-    font-size: 4rem;
-  }
-
-  .title p {
-    font-size: 1.25rem;
-  }
-
-  .about-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 }
