@@ -1,107 +1,66 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Button, Image, Input, Switch, Textarea } from '@nextui-org/react';
-import { Edit, Trash } from 'react-feather';
 import { useParams } from 'next/navigation';
+import { Edit, Trash } from 'react-feather';
 
 import { IAnimal } from '@/src/@types/animal';
-
-import './page.scss';
-import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
 import {
   actionSetAnimal,
   actionSetAnimalActive,
   actionSetAnimalId,
 } from '@/src/lib/actions/animal.action';
-import {
-  actionThunkAnimalById,
-  actionThunkUpdateAnimal,
-} from '@/src/lib/thunks/animal.thunk';
-import { actionLogIn } from '@/src/lib/actions/auth.action';
-import { addTokenJwtToAxiosInstance } from '@/src/lib/axios/axios';
+import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
+import { actionThunkAnimalById, actionThunkUpdateAnimal } from '@/src/lib/thunks/animal.thunk';
+
 import Loader from '../../components/Loader/Loader';
+
+const inputClassName =
+  'w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[#00a292] focus:ring-2 focus:ring-[#00a292]/30';
 
 function formatDateForInput(dateString: string | number | Date) {
   if (!dateString) return '';
   const date = new Date(dateString);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); 
+  const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 }
 
-function formatDateForDisplay(dateString: string | number | Date) {
-  if (!dateString) return '';
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${day}/${month}/${year}`;
-}
-
 export default function DetailAnimal() {
   const dispatch = useAppDispatch();
-
-  useEffect(() => {}, []);
-
   const { id } = useParams();
 
   const animalId = Number(id);
-  const isEdited = useAppSelector((state) => state.animal.isEdited);
-
-  useEffect(() => {
-    dispatch(actionSetAnimalId(animalId));
-    getAnimalById();
-    if (!animal) {
-      dispatch(actionThunkAnimalById());
-    }
-  }, [isEdited]);
-
-  async function getAnimalById() {
-    await dispatch(actionThunkAnimalById());
-  }
-
   const animal: IAnimal = useAppSelector((state) => state.animal.animal);
   const role = useAppSelector((state) => state.auth.connectedUser.role);
-
-  useEffect(() => {
-    if (animal) {
-      setName(animal.name || '');
-      setBirthdate(formatDateForInput(animal.birthdate) || '');
-      setHealth(animal.health || '');
-      setArrivalDate(formatDateForInput(animal.arrival_date) || '');
-      setleavingDate(formatDateForInput(animal.leaving_date) || '');
-      setDescription(animal.about || '');
-      setIsActiv(animal.is_active || true);
-    }
-  }, [animal]);
+  const isEdited = useAppSelector((state) => state.animal.isEdited);
+  const isLoading = useAppSelector((state) => state.animal.isloading);
 
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [health, setHealth] = useState('');
   const [arrivalDate, setArrivalDate] = useState('');
-  const [leavingDate, setleavingDate] = useState('');
+  const [leavingDate, setLeavingDate] = useState('');
   const [description, setDescription] = useState('');
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [isActiv, setIsActiv] = useState(true);
 
-  const btnEditClick = () => {
-    setIsReadOnly(false);
-    setIsEditing(true);
-  };
+  useEffect(() => {
+    dispatch(actionSetAnimalId(animalId));
+    dispatch(actionThunkAnimalById());
+  }, [animalId, dispatch, isEdited]);
 
-  const btnSaveClick = () => {
-    setIsReadOnly(true);
-    setIsEditing(false);
-  };
-
-  const refreshPage = () => {
-    window.location.reload();
-  };
-
-  const isLoading = useAppSelector((state) => state.animal.isloading);
+  useEffect(() => {
+    setName(animal.name || '');
+    setBirthdate(formatDateForInput(animal.birthdate) || '');
+    setHealth(animal.health || '');
+    setArrivalDate(formatDateForInput(animal.arrival_date) || '');
+    setLeavingDate(formatDateForInput(animal.leaving_date) || '');
+    setDescription(animal.about || '');
+    setIsActiv(animal.is_active ?? true);
+  }, [animal]);
 
   if (isLoading) {
     return <Loader />;
@@ -109,9 +68,10 @@ export default function DetailAnimal() {
 
   return (
     <form
-      className="detail-animal"
+      className="flex flex-col"
       onSubmit={async (e) => {
         e.preventDefault();
+
         dispatch(actionSetAnimal({ name: 'name', value: name }));
         dispatch(actionSetAnimal({ name: 'birthdate', value: birthdate }));
         dispatch(actionSetAnimal({ name: 'gender', value: animal.gender }));
@@ -122,159 +82,164 @@ export default function DetailAnimal() {
         dispatch(actionSetAnimalActive(isActiv));
 
         await dispatch(actionThunkUpdateAnimal());
+
+        setIsReadOnly(true);
+        setIsEditing(false);
       }}
     >
-      {animal ? (
-        <>
-          <div className="detail-animal-header">
-            <h1 className="detail-animal-title">
-              Fiche détaillée de {animal.name}
-            </h1>
-          </div>
-          <div className="detail-animal-content">
-            <div className="detail-animal-image">
-              <Image
-                isZoomed
-                width={360}
-                alt={animal.name}
-                src={`/${animal.avatar}`}
-              />
-            </div>
-            <div className="detail-animal-description">
-              <div className="detail-left">
-                <Input
-                  isReadOnly={isReadOnly}
-                  type="text"
-                  label="Nom"
-                  labelPlacement="outside"
-                  placeholder={isReadOnly ? '' : animal.name}
-                  name="name"
-                  value={isReadOnly ? animal.name : name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="user-input"
-                />
-                <Input
-                  isReadOnly
-                  type="text"
-                  label="Genre"
-                  labelPlacement="outside"
-                  placeholder={animal.gender}
-                  name="gender"
-                  className="user-input"
-                />
-                <Input
-                  isReadOnly={isReadOnly}
-                  type="date"
-                  label="Naissance"
-                  labelPlacement="outside"
-                  placeholder={isReadOnly ? '' : animal.birthdate}
-                  name="birthdate"
-                  value={isReadOnly ? animal.birthdate : birthdate}
-                  onChange={(e) => setBirthdate(e.target.value)}
-                  className="user-input"
-                />
-              </div>
-              <div className="detail-right">
-                <Input
-                  isReadOnly={isReadOnly}
-                  type="text"
-                  label="Santé"
-                  labelPlacement="outside"
-                  placeholder={isReadOnly ? '' : animal.health}
-                  name="health"
-                  value={isReadOnly ? animal.health : health}
-                  onChange={(e) => setHealth(e.target.value)}
-                  className="user-input"
-                />
-                <Input
-                  isReadOnly={isReadOnly}
-                  type="date"
-                  label="Date d'arrivée"
-                  labelPlacement="outside"
-                  placeholder={
-                    isReadOnly ? '' : formatDateForDisplay(animal.arrival_date)
-                  }
-                  name="arrival-date"
-                  value={
-                    isReadOnly
-                      ? formatDateForInput(animal.arrival_date)
-                      : arrivalDate
-                  }
-                  onChange={(e) => setArrivalDate(e.target.value)}
-                  className="user-input"
-                />
+      <div className="bg-[#07a397] px-4 py-4 text-center text-white">
+        <h1 className="text-2xl font-bold">Fiche détaillée de {animal.name}</h1>
+      </div>
 
-                <Input
-                  isReadOnly={isReadOnly}
-                  type="date"
-                  label="Date de sortie"
-                  labelPlacement="outside"
-                  placeholder={
-                    isReadOnly ? '' : formatDateForDisplay(animal.leaving_date)
-                  }
-                  name="leaving-date"
-                  value={
-                    isReadOnly
-                      ? formatDateForInput(animal.leaving_date)
-                      : leavingDate
-                  }
-                  onChange={(e) => setleavingDate(e.target.value)}
-                  className="user-input"
-                />
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-8 px-4 py-6 md:flex-row md:items-start md:justify-center">
+        <div className="w-full max-w-[360px] overflow-hidden rounded-xl shadow-md">
+          <img
+            src={`/${animal.avatar}`}
+            alt={animal.name}
+            className="h-auto w-full object-cover"
+          />
+        </div>
 
-                <Textarea
-                  isReadOnly={isReadOnly}
-                  type="text"
-                  label="A propos"
-                  labelPlacement="outside"
-                  placeholder={isReadOnly ? '' : animal.about}
-                  name="propos"
-                  value={isReadOnly ? animal.about : description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="user-input"
-                />
-                {(role === 'Employé' || role === 'Admin') && (
-                  <Switch
-                    isReadOnly={isReadOnly}
-                    isSelected={isReadOnly ? animal.is_active : isActiv}
-                    onValueChange={setIsActiv}
-                  >
-                    Est Actif ?
-                  </Switch>
-                )}
-              </div>
-            </div>
+        <div className="grid w-full max-w-4xl gap-4 md:grid-cols-2">
+          <div className="flex flex-col gap-4">
+            <label className="text-sm font-medium text-slate-600" htmlFor="animal-name">
+              Nom
+            </label>
+            <input
+              id="animal-name"
+              readOnly={isReadOnly}
+              type="text"
+              name="name"
+              value={isReadOnly ? animal.name : name}
+              onChange={(e) => setName(e.target.value)}
+              className={inputClassName}
+            />
+
+            <label className="text-sm font-medium text-slate-600" htmlFor="animal-gender">
+              Genre
+            </label>
+            <input
+              id="animal-gender"
+              readOnly
+              type="text"
+              name="gender"
+              value={animal.gender}
+              className={inputClassName}
+            />
+
+            <label className="text-sm font-medium text-slate-600" htmlFor="animal-birthdate">
+              Naissance
+            </label>
+            <input
+              id="animal-birthdate"
+              readOnly={isReadOnly}
+              type="date"
+              name="birthdate"
+              value={isReadOnly ? formatDateForInput(animal.birthdate) : birthdate}
+              onChange={(e) => setBirthdate(e.target.value)}
+              className={inputClassName}
+            />
           </div>
-          {(role === 'Employé' || role === 'Admin') && (
-            <div className="btn-edit">
-              {isEditing ? (
-                <Button
-                  type="submit"
-                  className="btn-only"
-                  color="success"
-                  onClick={refreshPage}
-                >
-                  Enregistrer
-                </Button>
-              ) : (
-                <>
-                  <Button
-                    className="btn-only"
-                    color="warning"
-                    onClick={btnEditClick}
-                  >
-                    Modifier <Edit />
-                  </Button>
-                  <Button className="btn-only" color="danger">
-                    Désactiver <Trash />
-                  </Button>
-                </>
-              )}
-            </div>
+
+          <div className="flex flex-col gap-4">
+            <label className="text-sm font-medium text-slate-600" htmlFor="animal-health">
+              Santé
+            </label>
+            <input
+              id="animal-health"
+              readOnly={isReadOnly}
+              type="text"
+              name="health"
+              value={isReadOnly ? animal.health : health}
+              onChange={(e) => setHealth(e.target.value)}
+              className={inputClassName}
+            />
+
+            <label className="text-sm font-medium text-slate-600" htmlFor="animal-arrival">
+              Date d&apos;arrivée
+            </label>
+            <input
+              id="animal-arrival"
+              readOnly={isReadOnly}
+              type="date"
+              name="arrival-date"
+              value={isReadOnly ? formatDateForInput(animal.arrival_date) : arrivalDate}
+              onChange={(e) => setArrivalDate(e.target.value)}
+              className={inputClassName}
+            />
+
+            <label className="text-sm font-medium text-slate-600" htmlFor="animal-leaving">
+              Date de sortie
+            </label>
+            <input
+              id="animal-leaving"
+              readOnly={isReadOnly}
+              type="date"
+              name="leaving-date"
+              value={isReadOnly ? formatDateForInput(animal.leaving_date) : leavingDate}
+              onChange={(e) => setLeavingDate(e.target.value)}
+              className={inputClassName}
+            />
+
+            <label className="text-sm font-medium text-slate-600" htmlFor="animal-about">
+              À propos
+            </label>
+            <textarea
+              id="animal-about"
+              readOnly={isReadOnly}
+              name="propos"
+              value={isReadOnly ? animal.about : description}
+              onChange={(e) => setDescription(e.target.value)}
+              className={`${inputClassName} min-h-28`}
+            />
+
+            {(role === 'Employé' || role === 'Admin') && (
+              <label className="inline-flex items-center gap-3 text-sm font-medium text-slate-700" htmlFor="animal-active">
+                <input
+                  id="animal-active"
+                  type="checkbox"
+                  disabled={isReadOnly}
+                  checked={isReadOnly ? animal.is_active : isActiv}
+                  onChange={(e) => setIsActiv(e.target.checked)}
+                  className="h-5 w-5 rounded border-slate-300 text-[#00a292] focus:ring-[#00a292]"
+                />
+                Est actif ?
+              </label>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {(role === 'Employé' || role === 'Admin') && (
+        <div className="mb-8 flex flex-wrap justify-center gap-4 px-4 md:justify-end md:pr-12">
+          {isEditing ? (
+            <button
+              type="submit"
+              className="rounded-lg bg-emerald-500 px-5 py-2 font-semibold text-white transition hover:bg-emerald-600"
+            >
+              Enregistrer
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-5 py-2 font-semibold text-white transition hover:bg-amber-600"
+                onClick={() => {
+                  setIsReadOnly(false);
+                  setIsEditing(true);
+                }}
+              >
+                Modifier <Edit size={16} />
+              </button>
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 rounded-lg bg-rose-500 px-5 py-2 font-semibold text-white transition hover:bg-rose-600"
+              >
+                Désactiver <Trash size={16} />
+              </button>
+            </>
           )}
-        </>
-      ) : (
-        'Loading'
+        </div>
       )}
     </form>
   );

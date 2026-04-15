@@ -20,18 +20,20 @@ module.exports = {
   overrides: [
     {
       files: ['src/**/reducers/*.ts'],
-      rules: { 'no-param-reassign': ['error', { props: false }] },
-      'import/no-cycle': off,
-      'import/extensions': [
-        'error',
-        'ignorePackages',
-        {
-          js: 'never',
-          jsx: 'never',
-          ts: 'never',
-          tsx: 'never',
-        },
-      ],
+      rules: {
+        'no-param-reassign': ['error', { props: false }],
+        'import/no-cycle': 'off',
+        'import/extensions': [
+          'error',
+          'ignorePackages',
+          {
+            js: 'never',
+            jsx: 'never',
+            ts: 'never',
+            tsx: 'never',
+          },
+        ],
+      },
     },
   ],
   plugins: ['react', '@typescript-eslint', 'prettier'],

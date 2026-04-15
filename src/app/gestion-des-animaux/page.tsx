@@ -1,89 +1,92 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Link as FeatherLink, Loader, Plus, Settings, X } from 'react-feather';
 import Link from 'next/link';
+import { Plus, Settings, X } from 'react-feather';
 
+import { actionSetAnimalId } from '@/src/lib/actions/animal.action';
+import { actionModifyNav } from '@/src/lib/actions/home.action';
 import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
 import {
   actionThunkAnimalList,
   actionThunkSoftDeleteAnimal,
 } from '@/src/lib/thunks/animal.thunk';
-import { actionLogIn } from '@/src/lib/actions/auth.action';
-import { addTokenJwtToAxiosInstance } from '@/src/lib/axios/axios';
 
 import AddAccountModal from '../components/AddAccountModal/AddAccountModal';
-
-import './page.scss';
-import { actionModifyNav } from '@/src/lib/actions/home.action';
-import { actionSetAnimalId } from '@/src/lib/actions/animal.action';
+import Loader from '../components/Loader/Loader';
 
 function AnimalEdit() {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {}, []);
-
   const deleted = useAppSelector((state) => state.animal.deleted);
   const added = useAppSelector((state) => state.animal.isAdded);
+  const animaux = useAppSelector((state) => state.animal.animalList);
+  const isLoading = useAppSelector((state) => state.animal.isloading);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     dispatch(actionThunkAnimalList());
-  }, [deleted, added]);
-
-  const animaux = useAppSelector((state) => state.animal.animalList);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  }, [deleted, added, dispatch]);
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  const isLoading = useAppSelector((state) => state.animal.isloading);
 
   if (isLoading) {
     return <Loader />;
   }
 
   return (
-    <section className="animal-edit-container">
-      <div className="animal-edit-title">
-        <h1 className="main-title">Gestion des animaux</h1>
+    <section className="mx-auto flex w-[92%] max-w-6xl flex-col py-6">
+      <div className="mb-4 flex min-h-16 items-center justify-between gap-4 rounded-lg bg-white px-4 py-3 shadow-sm">
+        <h1 className="text-lg font-bold sm:text-2xl">Gestion des animaux</h1>
+
         <button
-          className="add-animal-button"
+          type="button"
+          className="inline-flex items-center gap-2 rounded-lg border border-[#00a292] px-3 py-2 text-sm font-semibold text-[#006f64] transition hover:bg-[#00a292] hover:text-white sm:text-base"
           onClick={() => {
             setIsModalOpen(!isModalOpen);
           }}
         >
           {isModalOpen ? 'Fermer la modal' : 'Ajouter un animal'}
-          {isModalOpen ? <X /> : <Plus />}
+          {isModalOpen ? <X size={16} /> : <Plus size={16} />}
         </button>
       </div>
+
       {isModalOpen ? (
-        <AddAccountModal closeModal={closeModal} form={'animal'} />
+        <AddAccountModal closeModal={closeModal} form="animal" />
       ) : (
-        <div className="animal-block">
+        <div className="flex w-full flex-col gap-3 rounded-lg bg-white p-3 shadow-sm">
           {animaux.map((animal) => (
-            <div key={animal.id} className="animal-card">
-              <h2>
+            <div
+              key={animal.id}
+              className="flex min-h-16 flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-100 px-4 py-3"
+            >
+              <h2 className="text-sm font-semibold text-slate-800 sm:text-base">
                 {animal.name}, {animal.birthdate}
               </h2>
-              <div className="buttons-container">
+
+              <div className="flex items-center gap-2">
                 <Link
-                  className="animal-block-button"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-slate-700 text-white transition hover:bg-slate-800"
                   onClick={() => {
                     dispatch(actionModifyNav('Liste des animaux'));
                   }}
                   href={`/liste-des-animaux/${animal.id}`}
                 >
-                  <Settings />
+                  <Settings size={16} />
                 </Link>
+
                 <button
-                  className="animal-block-button"
+                  type="button"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-slate-700 text-white transition hover:bg-rose-600"
                   onClick={async () => {
                     dispatch(actionSetAnimalId(animal.id));
                     await dispatch(actionThunkSoftDeleteAnimal());
                   }}
                 >
-                  <X />
+                  <X size={16} />
                 </button>
               </div>
             </div>

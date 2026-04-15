@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   // Ip local ou public de l'API
-  baseURL: 'https://fureverhome-api.sparcky-dev.fr/api/v1',
+  baseURL: 'http://localhost:9000/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },

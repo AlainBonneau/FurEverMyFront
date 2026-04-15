@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-
 import {
   Book,
   Calendar,
@@ -15,13 +14,10 @@ import {
   Users,
   X,
 } from 'react-feather';
-import { Button } from '@nextui-org/react';
 
-import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
 import { actionLogOut } from '@/src/lib/actions/auth.action';
-
-import './NavBar.scss';
 import { actionModifyNav } from '@/src/lib/actions/home.action';
+import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
 
 function NavBar() {
   const dispatch = useAppDispatch();
@@ -30,364 +26,312 @@ function NavBar() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const nav = useAppSelector((state) => state.home.nav);
-
   const avatar = useAppSelector((state) => state.auth.connectedUser.avatar);
-  const firstname = useAppSelector(
-    (state) => state.auth.connectedUser.firstname
-  );
+  const firstname = useAppSelector((state) => state.auth.connectedUser.firstname);
   const lastname = useAppSelector((state) => state.auth.connectedUser.lastname);
   const role = useAppSelector((state) => state.auth.connectedUser.role);
 
-  const pseudo = firstname + ' ' + lastname.toLocaleUpperCase();
+  const pseudo = `${firstname || ''} ${(lastname || '').toUpperCase()}`.trim();
+
+  const desktopLinkClass = (isActive: boolean) =>
+    `rounded-md p-1 transition hover:text-[#00a292] ${isActive ? 'text-[#00a292]' : 'text-slate-700'}`;
+
+  const mobileLinkClass = (isActive: boolean) =>
+    `flex items-center gap-2 text-2xl font-semibold transition hover:text-[#00a292] ${isActive ? 'text-[#00a292]' : 'text-slate-800'}`;
+
+  const actionButtonClass =
+    'inline-flex items-center justify-center rounded-lg border border-[#00a292] px-4 py-2 text-sm font-semibold text-[#006f64] transition hover:bg-[#00a292] hover:text-white';
 
   return (
-    <nav className="navbar">
-      <div className="navbar--pannel">
-        <img className="navbar--pannel--logo" src="/logonav.png" alt="Logo" />
-        <h1 className="navbar--pannel--title">FurEverHome</h1>
+    <nav className="fixed top-0 z-20 flex h-[54px] w-full items-center justify-between bg-white px-3 shadow-md sm:px-5">
+      <div className="flex h-[54px] items-center overflow-hidden">
+        <img className="relative z-0 h-[110px]" src="/logonav.png" alt="Logo" />
+        <h1
+          className="-translate-x-16 text-2xl font-bold sm:text-3xl"
+          style={{ fontFamily: 'Merriweather, serif' }}
+        >
+          FurEverHome
+        </h1>
       </div>
 
-      <ul className="navbar--navigation">
-        <Link
-          className={
-            nav === 'Accueil'
-              ? 'navbar--navigation--link active'
-              : 'navbar--navigation--link'
-          }
-          href="/"
-          title="Accueil"
-          onClick={() => {
-            dispatch(actionModifyNav('Accueil'));
-          }}
-        >
-          <Home />
-        </Link>
-        <Link
-          className={
-            nav === 'Liste des animaux'
-              ? 'navbar--navigation--link active'
-              : 'navbar--navigation--link'
-          }
-          href="/liste-des-animaux"
-          title="Liste des animaux"
-          onClick={() => {
-            dispatch(actionModifyNav('Liste des animaux'));
-          }}
-        >
-          <Book />
-        </Link>
-        <Link
-          className={
-            nav === 'Contact'
-              ? 'navbar--navigation--link active'
-              : 'navbar--navigation--link'
-          }
-          href="/contact"
-          title="Contact"
-          onClick={() => {
-            dispatch(actionModifyNav('Contact'));
-          }}
-        >
-          <Send />
-        </Link>
-        {role && (
+      <ul className="hidden items-center gap-5 md:flex lg:gap-8">
+        <li>
           <Link
-            className={
-              nav === 'Planning'
-                ? 'navbar--navigation--link active'
-                : 'navbar--navigation--link'
-            }
+            className={desktopLinkClass(nav === 'Accueil')}
             href="/"
-            title="Planning"
-            onClick={() => {
-              dispatch(actionModifyNav('Planning'));
-            }}
+            title="Accueil"
+            onClick={() => dispatch(actionModifyNav('Accueil'))}
           >
-            <Calendar />
+            <Home />
           </Link>
+        </li>
+        <li>
+          <Link
+            className={desktopLinkClass(nav === 'Liste des animaux')}
+            href="/liste-des-animaux"
+            title="Liste des animaux"
+            onClick={() => dispatch(actionModifyNav('Liste des animaux'))}
+          >
+            <Book />
+          </Link>
+        </li>
+        <li>
+          <Link
+            className={desktopLinkClass(nav === 'Contact')}
+            href="/contact"
+            title="Contact"
+            onClick={() => dispatch(actionModifyNav('Contact'))}
+          >
+            <Send />
+          </Link>
+        </li>
+        {role && (
+          <li>
+            <Link
+              className={desktopLinkClass(nav === 'Planning')}
+              href="/"
+              title="Planning"
+              onClick={() => dispatch(actionModifyNav('Planning'))}
+            >
+              <Calendar />
+            </Link>
+          </li>
         )}
         {(role === 'Employé' || role === 'Admin') && (
-          <Link
-            className={
-              nav === 'Gestion des animaux'
-                ? 'navbar--navigation--link active'
-                : 'navbar--navigation--link'
-            }
-            href="/gestion-des-animaux"
-            title="Gestion des animaux"
-            onClick={() => {
-              dispatch(actionModifyNav('Gestion des animaux'));
-            }}
-          >
-            <Database />
-          </Link>
+          <li>
+            <Link
+              className={desktopLinkClass(nav === 'Gestion des animaux')}
+              href="/gestion-des-animaux"
+              title="Gestion des animaux"
+              onClick={() => dispatch(actionModifyNav('Gestion des animaux'))}
+            >
+              <Database />
+            </Link>
+          </li>
         )}
-
         {role === 'Admin' && (
-          <Link
-            className={
-              nav === 'Gestion des employés'
-                ? 'navbar--navigation--link active'
-                : 'navbar--navigation--link'
-            }
-            href="/gestion-des-employes"
-            title="Gestion des employés"
-            onClick={() => {
-              dispatch(actionModifyNav('Gestion des employés'));
-            }}
-          >
-            <Users />
-          </Link>
+          <li>
+            <Link
+              className={desktopLinkClass(nav === 'Gestion des employés')}
+              href="/gestion-des-employes"
+              title="Gestion des employés"
+              onClick={() => dispatch(actionModifyNav('Gestion des employés'))}
+            >
+              <Users />
+            </Link>
+          </li>
         )}
       </ul>
 
-      <ul className="navbar--navigation">
+      <div className="hidden md:flex md:items-center">
         {role ? (
-          <div className="navbar--navigation--connected">
-            <button onClick={() => setUserMenuOpen(!userMenuOpen)}>
+          <div className="relative flex items-center">
+            <button
+              type="button"
+              onClick={() => setUserMenuOpen((prev) => !prev)}
+              className="rounded-full"
+            >
               <img
                 src={avatar ? `/${avatar}` : '/users/profile-default.svg'}
                 alt="Icon utilisateur"
-                className="navbar--navigation--connected--usericon"
+                className="h-10 w-10 rounded-full border-2 border-[#003f3e] object-cover transition hover:border-[#00a292]"
               />
             </button>
             {userMenuOpen && (
-              <div className="usermenuopen">
-                <h1>{pseudo}</h1>
+              <div className="absolute right-0 top-14 z-30 flex w-56 flex-col items-center gap-3 rounded-lg bg-white p-4 shadow-lg">
+                <h1 className="text-center text-sm font-semibold text-slate-700">
+                  {pseudo}
+                </h1>
                 <Link
-                  className={
-                    nav === 'Compte'
-                      ? 'usermenuopen--link active'
-                      : 'usermenuopen--link'
-                  }
+                  className={`text-sm transition hover:text-[#00a292] ${nav === 'Compte' ? 'text-[#00a292]' : 'text-slate-700'}`}
                   href="/compte"
                   title="Compte"
-                  onClick={() => {
-                    dispatch(actionModifyNav('Compte'));
-                  }}
+                  onClick={() => dispatch(actionModifyNav('Compte'))}
                 >
                   Compte
                 </Link>
-                <Link href="/">
-                  <Button
-                    size="md"
-                    color="primary"
-                    variant="ghost"
-                    className="navbar--navigation--button"
-                    onClick={() => {
-                      dispatch(actionLogOut());
-                    }}
-                  >
-                    Se deconnecter <LogOut size="20px" />
-                  </Button>
+                <Link
+                  href="/"
+                  className={`${actionButtonClass} inline-flex items-center gap-2`}
+                  onClick={() => {
+                    dispatch(actionLogOut());
+                    setUserMenuOpen(false);
+                  }}
+                >
+                  Se déconnecter <LogOut size={18} />
                 </Link>
               </div>
             )}
           </div>
         ) : (
-          <Link href="/connexion">
-            <Button
-              size="md"
-              color="primary"
-              variant="ghost"
-              className="navbar--navigation--button"
-            >
-              Connexion
-            </Button>
+          <Link href="/connexion" className={actionButtonClass}>
+            Connexion
           </Link>
         )}
-      </ul>
+      </div>
 
-      {isMenuOpen ? (
-        <div className="mobilemenu">
-          <div className="mobilemenu--navbar">
-            <div className="navbar--pannel">
-              <img
-                className="navbar--pannel--logo"
-                src="/logonav.png"
-                alt="Logo"
-              />
-              <h1 className="navbar--pannel--title">FurEverHome</h1>
+      <button
+        type="button"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-md text-slate-700 md:hidden"
+        onClick={() => setIsMenuOpen(true)}
+        aria-label="Ouvrir le menu"
+      >
+        <Menu size={28} />
+      </button>
+
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-40 flex h-screen w-full flex-col bg-white">
+          <div className="flex h-[54px] items-center justify-between px-3 shadow-md sm:px-5">
+            <div className="flex h-[54px] items-center overflow-hidden">
+              <img className="relative z-0 h-[110px]" src="/logonav.png" alt="Logo" />
+              <h1
+                className="-translate-x-16 text-2xl font-bold"
+                style={{ fontFamily: 'Merriweather, serif' }}
+              >
+                FurEverHome
+              </h1>
             </div>
             <button
-              className="mobilemenu--navbar--mobilenav"
+              type="button"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md text-slate-700"
               onClick={() => setIsMenuOpen(false)}
+              aria-label="Fermer le menu"
             >
-              <X size="40px" />
+              <X size={32} />
             </button>
           </div>
 
-          <div className="mobilemenu--navigation">
-            {role && (
-              <div className="mobilemenu--navigation--user">
-                <img
-                  src={avatar ? `/${avatar}` : '/users/profile-default.svg'}
-                  alt="Icon utilisateur"
-                  className="mobilemenu--navigation--user--icon"
-                />
-                <h1 className="mobilemenu--navigation--user--name">{pseudo}</h1>
-              </div>
-            )}
-            <ul className="mobilemenu--navigation--links">
+          <div className="flex flex-1 flex-col items-center justify-between py-8">
+            <div className="flex w-full max-w-md flex-col items-center gap-6">
+              {role && (
+                <div className="mb-4 flex flex-col items-center gap-3">
+                  <img
+                    src={avatar ? `/${avatar}` : '/users/profile-default.svg'}
+                    alt="Icon utilisateur"
+                    className="h-24 w-24 rounded-full border-2 border-[#003f3e] object-cover"
+                  />
+                  <h1 className="text-2xl font-bold text-[#00a292]">{pseudo}</h1>
+                </div>
+              )}
+
               <Link
-                className={
-                  nav === 'Accueil'
-                    ? 'mobilemenu--navigation--link active'
-                    : 'mobilemenu--navigation--link'
-                }
+                className={mobileLinkClass(nav === 'Accueil')}
                 href="/"
                 onClick={() => {
                   dispatch(actionModifyNav('Accueil'));
                   setIsMenuOpen(false);
                 }}
               >
-                <Home size="40px" />
-                <h1>Accueil</h1>
+                <Home size={30} />
+                <span>Accueil</span>
               </Link>
+
               {role && (
                 <Link
-                  className={
-                    nav === 'Compte'
-                      ? 'mobilemenu--navigation--link active'
-                      : 'mobilemenu--navigation--link'
-                  }
+                  className={mobileLinkClass(nav === 'Compte')}
                   href="/compte"
                   onClick={() => {
                     dispatch(actionModifyNav('Compte'));
                     setIsMenuOpen(false);
                   }}
                 >
-                  <User size="40px" />
-                  <h1>Compte</h1>
+                  <User size={30} />
+                  <span>Compte</span>
                 </Link>
               )}
+
               <Link
-                className={
-                  nav === 'Liste des animaux'
-                    ? 'mobilemenu--navigation--link active'
-                    : 'mobilemenu--navigation--link'
-                }
+                className={mobileLinkClass(nav === 'Liste des animaux')}
                 href="/liste-des-animaux"
                 onClick={() => {
                   dispatch(actionModifyNav('Liste des animaux'));
                   setIsMenuOpen(false);
                 }}
               >
-                <Book size="40px" />
-                <h1>Liste des animaux</h1>
+                <Book size={30} />
+                <span>Liste des animaux</span>
               </Link>
+
               <Link
-                className={
-                  nav === 'Contact'
-                    ? 'mobilemenu--navigation--link active'
-                    : 'mobilemenu--navigation--link'
-                }
+                className={mobileLinkClass(nav === 'Contact')}
                 href="/contact"
                 onClick={() => {
                   dispatch(actionModifyNav('Contact'));
                   setIsMenuOpen(false);
                 }}
               >
-                <Send size="40px" />
-                <h1>Contact</h1>
+                <Send size={30} />
+                <span>Contact</span>
               </Link>
+
               {role && (
                 <Link
-                  className={
-                    nav === 'Planning'
-                      ? 'mobilemenu--navigation--link active'
-                      : 'mobilemenu--navigation--link'
-                  }
+                  className={mobileLinkClass(nav === 'Planning')}
                   href="/"
                   onClick={() => {
                     dispatch(actionModifyNav('Planning'));
                     setIsMenuOpen(false);
                   }}
                 >
-                  <Calendar size="40px" />
-                  <h1>Planning</h1>
+                  <Calendar size={30} />
+                  <span>Planning</span>
                 </Link>
               )}
+
               {(role === 'Employé' || role === 'Admin') && (
                 <Link
-                  className={
-                    nav === 'Gestion des animaux'
-                      ? 'mobilemenu--navigation--link active'
-                      : 'mobilemenu--navigation--link'
-                  }
+                  className={mobileLinkClass(nav === 'Gestion des animaux')}
                   href="/gestion-des-animaux"
                   onClick={() => {
                     dispatch(actionModifyNav('Gestion des animaux'));
                     setIsMenuOpen(false);
                   }}
                 >
-                  <Database size="40px" />
-                  <h1>Gestion des animaux</h1>
+                  <Database size={30} />
+                  <span>Gestion des animaux</span>
                 </Link>
               )}
 
               {role === 'Admin' && (
                 <Link
-                  className={
-                    nav === 'Gestion des employés'
-                      ? 'mobilemenu--navigation--link active'
-                      : 'mobilemenu--navigation--link'
-                  }
+                  className={mobileLinkClass(nav === 'Gestion des employés')}
                   href="/gestion-des-employes"
                   onClick={() => {
                     dispatch(actionModifyNav('Gestion des employés'));
                     setIsMenuOpen(false);
                   }}
                 >
-                  <Users size="40px" />
-                  <h1>Gestion des employés</h1>
+                  <Users size={30} />
+                  <span>Gestion des employés</span>
                 </Link>
               )}
-            </ul>
+            </div>
+
             {role ? (
-              <>
-                <Link href="/">
-                  <Button
-                    className="mobilemenu--navigation--disconnect"
-                    size="lg"
-                    color="primary"
-                    variant="ghost"
-                    onClick={() => {
-                      dispatch(actionLogOut());
-                    }}
-                  >
-                    <h1 className="mobilemenu--navigation--disconnect--title">
-                      Se deconnecter
-                    </h1>{' '}
-                    <LogOut size="40px" />
-                  </Button>
-                </Link>
-              </>
+              <Link
+                href="/"
+                className="mb-8 inline-flex items-center gap-3 rounded-lg border border-[#00a292] px-6 py-3 text-xl font-semibold text-[#006f64] transition hover:bg-[#00a292] hover:text-white"
+                onClick={() => {
+                  dispatch(actionLogOut());
+                  setIsMenuOpen(false);
+                }}
+              >
+                Se déconnecter <LogOut size={28} />
+              </Link>
             ) : (
-              <Link href="/connexion">
-                <Button
-                  className="mobilemenu--navigation--disconnect"
-                  size="md"
-                  color="primary"
-                  variant="ghost"
-                >
-                  <h1 className="mobilemenu--navigation--disconnect--title">
-                    Connexion
-                  </h1>
-                </Button>
+              <Link
+                href="/connexion"
+                className="mb-8 rounded-lg border border-[#00a292] px-6 py-3 text-xl font-semibold text-[#006f64] transition hover:bg-[#00a292] hover:text-white"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Connexion
               </Link>
             )}
           </div>
         </div>
-      ) : (
-        <button
-          className="navbar--mobilenav"
-          onClick={() => setIsMenuOpen(true)}
-        >
-          <Menu size="40px" />
-        </button>
       )}
     </nav>
   );
 }
+
 export default NavBar;

@@ -1,5 +1,5 @@
-import { IUser } from '@/src/@types/user';
 import { createReducer } from '@reduxjs/toolkit';
+import { IUser } from '@/src/@types/user';
 import {
   actionThunkUserById,
   actionThunkUserList,

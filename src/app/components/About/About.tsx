@@ -1,21 +1,34 @@
 import React from 'react';
-import './About.scss';
 
 function About() {
   return (
-    <div className="about-us">
-      <h1> 🐶 À Propos de Fur Ever Home 🐶 </h1>
-      <img src="/AnimalShelter.png" alt="" />
-      <p>
+    <section
+      className="flex w-full max-w-5xl flex-col gap-5 rounded-xl bg-gradient-to-t from-[#06796b] to-[#efe6db] p-4 text-center text-white shadow-xl md:p-8 xl:w-1/2"
+      style={{ fontFamily: 'Poetsen One, sans-serif' }}
+    >
+      <h1 className="text-3xl font-bold text-[#003f3e] md:text-4xl">
+        🐶 À Propos de Fur Ever Home 🐶
+      </h1>
+
+      <img
+        src="/AnimalShelter.png"
+        alt="Refuge animalier Fur Ever Home"
+        className="mx-auto h-auto w-full max-w-sm rounded-lg object-cover xl:h-[40vh]"
+      />
+
+      <p className="text-base leading-relaxed md:text-lg">
         Bienvenue chez <strong>Fur Ever Home</strong>, votre refuge animalier
         dévoué à offrir une seconde chance aux animaux dans le besoin. Notre
         mission est simple mais puissante : trouver des foyers aimants et
         permanents pour les animaux abandonnés et maltraités. Nous croyons
-        fermement que chaque animal mérite une vie remplie d&apos;amour, de
-        soins et de bonheur.
+        fermement que chaque animal mérite une vie remplie d&apos;amour, de soins
+        et de bonheur.
       </p>
-      <h2>Notre Mission</h2>
-      <ul>
+
+      <h2 className="mt-4 text-2xl font-bold underline md:text-3xl">
+        Notre Mission
+      </h2>
+      <ul className="list-disc space-y-2 pl-6 text-left text-base md:text-lg">
         <li>
           <strong>Sauver</strong> les animaux en détresse, qu&apos;ils soient
           abandonnés, maltraités ou négligés.
@@ -34,12 +47,15 @@ function About() {
           ils pourront s&apos;épanouir et être heureux.
         </li>
       </ul>
-      <h2>Nos Services</h2>
-      <p>
+
+      <h2 className="mt-4 text-2xl font-bold underline md:text-3xl">
+        Nos Services
+      </h2>
+      <p className="text-base leading-relaxed md:text-lg">
         Chez Fur Ever Home, nous offrons une gamme de services pour le bien-être
         de nos animaux :
       </p>
-      <ul>
+      <ul className="list-disc space-y-2 pl-6 text-left text-base md:text-lg">
         <li>
           <strong>Adoption</strong> : Nous aidons à trouver le match parfait
           entre nos animaux et leurs futurs propriétaires.
@@ -59,15 +75,20 @@ function About() {
           animale.
         </li>
       </ul>
-      <h2>Comment Vous Pouvez Aider</h2>
-      <p>Il existe de nombreuses façons de soutenir Fur Ever Home :</p>
-      <ul>
+
+      <h2 className="mt-4 text-2xl font-bold underline md:text-3xl">
+        Comment Vous Pouvez Aider
+      </h2>
+      <p className="text-base leading-relaxed md:text-lg">
+        Il existe de nombreuses façons de soutenir Fur Ever Home :
+      </p>
+      <ul className="list-disc space-y-2 pl-6 text-left text-base md:text-lg">
         <li>
           <strong>Adoptez</strong> : Donnez une nouvelle vie à un animal en
           l&apos;accueillant dans votre foyer.
         </li>
         <li>
-          <strong>Devenez Famille d’Accueil</strong> : Aidez un animal à
+          <strong>Devenez Famille d&apos;Accueil</strong> : Aidez un animal à
           s&apos;adapter à la vie en famille en devenant famille d&apos;accueil
           temporaire.
         </li>
@@ -80,12 +101,14 @@ function About() {
           aidez-nous dans nos tâches quotidiennes au refuge.
         </li>
       </ul>
-      <p>
+
+      <p className="text-base leading-relaxed md:text-lg">
         Merci de votre intérêt et de votre soutien à Fur Ever Home. Ensemble,
         nous pouvons faire une différence dans la vie des animaux sans abri et
         leur offrir une chance de trouver leur &quot;fur ever home&quot;.
       </p>
-    </div>
+    </section>
   );
 }
+
 export default About;

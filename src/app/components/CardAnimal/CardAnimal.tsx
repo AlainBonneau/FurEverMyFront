@@ -1,11 +1,8 @@
 'use client';
 
-import { Card, CardBody, CardFooter, Image} from '@nextui-org/react';
-
-import './CardAnimal.scss';
-import { IAnimal } from '@/src/@types/animal';
 import Link from 'next/link';
 
+import { IAnimal } from '@/src/@types/animal';
 
 interface CardAnimalProps {
   animal: IAnimal;
@@ -13,28 +10,19 @@ interface CardAnimalProps {
 
 export default function CardAnimal({ animal }: CardAnimalProps) {
   return (
-    <Link className="animal-id" href={`/liste-des-animaux/${animal.id}`}>
-    <Card
-      shadow="sm"
-      isPressable
-      className="w-[300px] aspect-[3/4]"
+    <Link
+      className="block w-[300px] overflow-hidden rounded-xl bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+      href={`/liste-des-animaux/${animal.id}`}
     >
-      <CardBody className="overflow-visible p-0">
-        <Image
-          isZoomed
-          shadow="sm"
-          radius="none"
-          width="100%"
-          alt={animal.name}
-          className="h-[350px] object-cover"
-          src={animal.avatar}
-        />
-      </CardBody>
-      <CardFooter className="text-small justify-between">
-        <b>{animal.name}</b>
-        <p className="text-default-500">{`${animal.birthdate}`}</p>
-        </CardFooter>
-    </Card>
+      <img
+        src={animal.avatar}
+        alt={animal.name}
+        className="h-[350px] w-full object-cover"
+      />
+      <div className="flex items-center justify-between gap-2 px-4 py-3 text-sm">
+        <b className="text-base text-slate-900">{animal.name}</b>
+        <p className="text-slate-500">{animal.birthdate}</p>
+      </div>
     </Link>
   );
 }
