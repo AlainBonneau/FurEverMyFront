@@ -31,11 +31,9 @@ const GoogleMaps = () => {
 
       {!googleMapsApiKey ? (
         <div className="mt-8 w-full rounded-xl border border-red-200 bg-red-50 p-4 text-center text-red-700">
-          Clé Google Maps manquante. Ajoute
-          {' '}
-          <code>NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code>
-          {' '}
-          dans l&apos;environnement.
+          Clé Google Maps manquante. Ajoute{' '}
+          <code>NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> dans
+          l&apos;environnement.
         </div>
       ) : (
         <LoadScript googleMapsApiKey={googleMapsApiKey}>
