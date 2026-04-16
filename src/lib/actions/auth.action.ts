@@ -1,21 +1,19 @@
 import { createAction } from '@reduxjs/toolkit';
+import type { ConnectedUser } from '@/src/@types/auth';
 
 export const actionChangeCredential = createAction<{
   name: 'email' | 'password';
   value: string;
 }>('auth/CHANGE_CREDENTIAL');
 
-export const actionLogOut = createAction('auth/LOGOUT');
+export const actionRememberMe = createAction<boolean>('auth/REMEMBER_ME');
 
-export const actionLogIn = createAction<{
-  jwt: string;
-  pseudo: string;
-  role: string;
-  avatar: string;
-}>('auth/LOGIN');
+export const actionSetToken = createAction<string | undefined>(
+  'auth/SET_TOKEN'
+);
 
-export const actionSetConnectedUser = createAction<unknown>(
+export const actionSetConnectedUser = createAction<ConnectedUser>(
   'auth/SET_CONNECTED_USER'
 );
-export const actionRememberMe = createAction<boolean>('auth/REMEMBER_ME');
-export const actionSetToken = createAction<string>('auth/SET_TOKEN');
+
+export const actionLogOut = createAction('auth/LOG_OUT');

@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-cycle
 import { createReducer } from '@reduxjs/toolkit';
 
 import {
@@ -9,28 +8,16 @@ import {
   actionSetToken,
 } from '../actions/auth.action';
 import { thunkActionLogin, thunkActionRegister } from '../thunks/auth.thunk';
-import {
-  addToLocalStorage,
-  clearLocalStorage,
-} from '@/src/localstorage/localStorage';
-import {
-  addToSessionStorage,
-  clearSessionStorage,
-} from '@/src/sessionStorage/sessionStorage';
+import { clearLocalStorage } from '@/src/localstorage/localStorage';
+import { clearSessionStorage } from '@/src/sessionStorage/sessionStorage';
+import type { ConnectedUser } from '@/src/@types/auth';
 
-// -- LE STATE INITIAL et son interface
 interface InitialState {
   credentials: {
     email: string;
     password: string;
   };
-  connectedUser: {
-    avatar: string;
-    userId: number;
-    lastname: string;
-    firstname: string;
-    role?: 'Bénévole' | 'Employé' | 'Admin';
-  };
+  connectedUser: ConnectedUser;
   token?: string;
   remember: boolean;
   isloading: boolean;
@@ -38,23 +25,47 @@ interface InitialState {
   modified: boolean;
 }
 
+const emptyConnectedUser: ConnectedUser = {
+  avatar: '',
+  userId: 0,
+  lastname: '',
+  firstname: '',
+  role: undefined,
+};
+
 const initialState: InitialState = {
   credentials: {
     email: '',
     password: '',
   },
-  connectedUser: {
-    avatar: '',
-    userId: 0,
-    lastname: '',
-    firstname: '',
-    role: undefined,
-  },
+  connectedUser: emptyConnectedUser,
   token: undefined,
   remember: false,
   isloading: false,
   message: '',
   modified: false,
+};
+
+const decodeJwtUser = (token: string): ConnectedUser => {
+  try {
+    const arrayToken = token.split('.');
+
+    if (arrayToken.length < 2) {
+      return emptyConnectedUser;
+    }
+
+    const decoded = JSON.parse(atob(arrayToken[1])) as Partial<ConnectedUser>;
+
+    return {
+      avatar: decoded.avatar ?? '',
+      userId: decoded.userId ?? 0,
+      lastname: decoded.lastname ?? '',
+      firstname: decoded.firstname ?? '',
+      role: decoded.role,
+    };
+  } catch (error) {
+    return emptyConnectedUser;
+  }
 };
 
 const loginReducer = createReducer(initialState, (builder) => {
@@ -73,49 +84,45 @@ const loginReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionLogOut, (state) => {
       state.token = undefined;
-      state.connectedUser = {
-        avatar: '',
-        userId: 0,
-        lastname: '',
-        firstname: '',
-        role: undefined,
-      };
+      state.connectedUser = emptyConnectedUser;
+      state.message = '';
+      state.modified = false;
+
       clearSessionStorage();
       clearLocalStorage();
     })
+
     .addCase(thunkActionRegister.pending, (state) => {
       state.isloading = true;
+      state.message = '';
+      state.modified = false;
     })
     .addCase(thunkActionRegister.fulfilled, (state) => {
       state.isloading = false;
-      state.message = 'Utilisateur ajouter avec succes';
+      state.message = 'Utilisateur ajouté avec succès';
       state.modified = true;
     })
     .addCase(thunkActionRegister.rejected, (state) => {
       state.isloading = false;
-      state.message = 'Erreur ...';
+      state.message = 'Erreur lors de l’inscription';
+      state.modified = false;
     })
+
     .addCase(thunkActionLogin.pending, (state) => {
       state.isloading = true;
+      state.message = '';
     })
     .addCase(thunkActionLogin.fulfilled, (state, action) => {
       state.isloading = false;
-      const token: string = action.payload;
-
-      // Parse le token pour extraire les données de l'utilisateur
-      const arrayToken = token.split('.');
-      const tokenPayload = JSON.parse(atob(arrayToken[1]));
-      state.connectedUser = tokenPayload;
-      state.token = token;
-
-      // Stocker le token dans le stockage local ou session
-      addToSessionStorage(token);
-      addToLocalStorage(token); // uniquement si le "remember me" est coché
+      state.token = action.payload;
+      state.connectedUser = decodeJwtUser(action.payload);
+      state.message = 'Connexion réussie';
     })
-
     .addCase(thunkActionLogin.rejected, (state) => {
       state.isloading = false;
-      state.message = 'erreur de connexion';
+      state.message = 'Erreur de connexion';
+      state.token = undefined;
+      state.connectedUser = emptyConnectedUser;
     });
 });
 
