@@ -20,7 +20,10 @@ function ContactForm() {
 
         <div className="space-y-4">
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="name-contact-form">
+            <label
+              className="mb-1 block text-sm font-medium text-slate-600"
+              htmlFor="name-contact-form"
+            >
               Prénom
             </label>
             <input
@@ -39,7 +42,10 @@ function ContactForm() {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="last-name-contact-form">
+            <label
+              className="mb-1 block text-sm font-medium text-slate-600"
+              htmlFor="last-name-contact-form"
+            >
               Nom
             </label>
             <input
@@ -58,7 +64,10 @@ function ContactForm() {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="email-contact-form">
+            <label
+              className="mb-1 block text-sm font-medium text-slate-600"
+              htmlFor="email-contact-form"
+            >
               Email
             </label>
             <input
@@ -77,7 +86,10 @@ function ContactForm() {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="message-contact-form">
+            <label
+              className="mb-1 block text-sm font-medium text-slate-600"
+              htmlFor="message-contact-form"
+            >
               Message
             </label>
             <textarea

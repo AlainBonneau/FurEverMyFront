@@ -126,7 +126,7 @@ const animalReducer = createReducer(initialState, (builder) => {
     .addCase(actionThunkUpdateAnimal.pending, (state) => {
       state.isloading = true;
     })
-    .addCase(actionThunkUpdateAnimal.fulfilled, (state, action) => {
+    .addCase(actionThunkUpdateAnimal.fulfilled, (state) => {
       state.isloading = false;
       state.isEdited = true;
       state.animal = {

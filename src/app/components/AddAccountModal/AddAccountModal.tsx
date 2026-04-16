@@ -3,7 +3,10 @@
 import React, { useState } from 'react';
 
 import { actionSetAnimal } from '@/src/lib/actions/animal.action';
-import { actionSetConfirmPassword, actionSetUser } from '@/src/lib/actions/user.action';
+import {
+  actionSetConfirmPassword,
+  actionSetUser,
+} from '@/src/lib/actions/user.action';
 import { useAppDispatch } from '@/src/lib/hooks';
 import { actionThunkAddAnimal } from '@/src/lib/thunks/animal.thunk';
 import { thunkActionRegister } from '@/src/lib/thunks/auth.thunk';
@@ -60,8 +63,12 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
             dispatch(actionSetUser({ name: 'email', value: email }));
             dispatch(actionSetUser({ name: 'password', value: password }));
             dispatch(actionSetConfirmPassword(confirmPassword));
-            dispatch(actionSetUser({ name: 'arrival_date', value: arrivalDate }));
-            dispatch(actionSetUser({ name: 'leaving_date', value: leavingDate }));
+            dispatch(
+              actionSetUser({ name: 'arrival_date', value: arrivalDate })
+            );
+            dispatch(
+              actionSetUser({ name: 'leaving_date', value: leavingDate })
+            );
             dispatch(actionSetUser({ name: 'role', value: role }));
 
             await dispatch(thunkActionRegister());
@@ -72,8 +79,12 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
             dispatch(actionSetAnimal({ name: 'birthdate', value: birthdate }));
             dispatch(actionSetAnimal({ name: 'gender', value: genderValue }));
             dispatch(actionSetAnimal({ name: 'health', value: diseaseValue }));
-            dispatch(actionSetAnimal({ name: 'arrival_date', value: arrivalDate }));
-            dispatch(actionSetAnimal({ name: 'leaving_date', value: leavingDate }));
+            dispatch(
+              actionSetAnimal({ name: 'arrival_date', value: arrivalDate })
+            );
+            dispatch(
+              actionSetAnimal({ name: 'leaving_date', value: leavingDate })
+            );
             dispatch(actionSetAnimal({ name: 'about', value: textAreaValue }));
 
             await dispatch(actionThunkAddAnimal());
@@ -89,7 +100,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
         {form === 'employe' ? (
           <>
             <div className="w-full">
-              <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="lastname-form">
+              <label
+                className="mb-1 block text-sm font-medium text-slate-600"
+                htmlFor="lastname-form"
+              >
                 Nom de famille
               </label>
               <input
@@ -108,7 +122,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
             </div>
 
             <div className="w-full">
-              <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="firstname-form">
+              <label
+                className="mb-1 block text-sm font-medium text-slate-600"
+                htmlFor="firstname-form"
+              >
                 Prénom
               </label>
               <input
@@ -128,7 +145,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
           </>
         ) : (
           <div className="w-full">
-            <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="name-profil-form">
+            <label
+              className="mb-1 block text-sm font-medium text-slate-600"
+              htmlFor="name-profil-form"
+            >
               Nom
             </label>
             <input
@@ -148,7 +168,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
         )}
 
         <div className="w-full">
-          <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="birthdate-form">
+          <label
+            className="mb-1 block text-sm font-medium text-slate-600"
+            htmlFor="birthdate-form"
+          >
             Date de naissance
           </label>
           <input
@@ -164,7 +187,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
         {form === 'employe' ? (
           <>
             <div className="w-full">
-              <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="email-form">
+              <label
+                className="mb-1 block text-sm font-medium text-slate-600"
+                htmlFor="email-form"
+              >
                 Email
               </label>
               <input
@@ -183,7 +209,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
             </div>
 
             <div className="w-full">
-              <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="password-form">
+              <label
+                className="mb-1 block text-sm font-medium text-slate-600"
+                htmlFor="password-form"
+              >
                 Mot de passe
               </label>
               <input
@@ -202,7 +231,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
             </div>
 
             <div className="w-full">
-              <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="confirmPassword-form">
+              <label
+                className="mb-1 block text-sm font-medium text-slate-600"
+                htmlFor="confirmPassword-form"
+              >
                 Confirmation mot de passe
               </label>
               <input
@@ -223,7 +255,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
         ) : (
           <>
             <div className="w-full">
-              <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="gender-form">
+              <label
+                className="mb-1 block text-sm font-medium text-slate-600"
+                htmlFor="gender-form"
+              >
                 Genre
               </label>
               <select
@@ -245,7 +280,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
             </div>
 
             <div className="w-full">
-              <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="disease-profil-form">
+              <label
+                className="mb-1 block text-sm font-medium text-slate-600"
+                htmlFor="disease-profil-form"
+              >
                 Pathologie
               </label>
               <input
@@ -265,7 +303,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
         )}
 
         <div className="w-full">
-          <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="arrival-date">
+          <label
+            className="mb-1 block text-sm font-medium text-slate-600"
+            htmlFor="arrival-date"
+          >
             Date d&apos;arrivée
           </label>
           <input
@@ -279,7 +320,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
         </div>
 
         <div className="w-full">
-          <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="leaving-date">
+          <label
+            className="mb-1 block text-sm font-medium text-slate-600"
+            htmlFor="leaving-date"
+          >
             Date de sortie
           </label>
           <input
@@ -294,7 +338,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
 
         {form === 'employe' ? (
           <div className="w-full">
-            <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="role-form">
+            <label
+              className="mb-1 block text-sm font-medium text-slate-600"
+              htmlFor="role-form"
+            >
               Rôle
             </label>
             <select
@@ -316,7 +363,10 @@ function AddAccountModal({ closeModal, form }: AddAccountModalProps) {
           </div>
         ) : (
           <div className="w-full">
-            <label className="mb-1 block text-sm font-medium text-slate-600" htmlFor="about-profil-form">
+            <label
+              className="mb-1 block text-sm font-medium text-slate-600"
+              htmlFor="about-profil-form"
+            >
               À propos
             </label>
             <textarea

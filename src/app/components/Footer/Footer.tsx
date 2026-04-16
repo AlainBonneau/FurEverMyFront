@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer className="absolute bottom-0 w-full bg-[#02564c] text-white">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between px-4 py-6 text-center md:px-6">

@@ -17,6 +17,19 @@ module.exports = {
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
   },
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        project: './tsconfig.json',
+      },
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
   overrides: [
     {
       files: ['src/**/reducers/*.ts'],
@@ -33,6 +46,13 @@ module.exports = {
             tsx: 'never',
           },
         ],
+      },
+    },
+    {
+      files: ['src/lib/hooks.ts'],
+      rules: {
+        'no-restricted-imports': 'off',
+        '@typescript-eslint/no-restricted-imports': 'off',
       },
     },
   ],

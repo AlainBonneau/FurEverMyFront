@@ -27,7 +27,9 @@ function NavBar() {
 
   const nav = useAppSelector((state) => state.home.nav);
   const avatar = useAppSelector((state) => state.auth.connectedUser.avatar);
-  const firstname = useAppSelector((state) => state.auth.connectedUser.firstname);
+  const firstname = useAppSelector(
+    (state) => state.auth.connectedUser.firstname
+  );
   const lastname = useAppSelector((state) => state.auth.connectedUser.lastname);
   const role = useAppSelector((state) => state.auth.connectedUser.role);
 
@@ -183,7 +185,11 @@ function NavBar() {
         <div className="fixed inset-0 z-40 flex h-screen w-full flex-col bg-white">
           <div className="flex h-[54px] items-center justify-between px-3 shadow-md sm:px-5">
             <div className="flex h-[54px] items-center overflow-hidden">
-              <img className="relative z-0 h-[110px]" src="/logonav.png" alt="Logo" />
+              <img
+                className="relative z-0 h-[110px]"
+                src="/logonav.png"
+                alt="Logo"
+              />
               <h1
                 className="-translate-x-16 text-2xl font-bold"
                 style={{ fontFamily: 'Merriweather, serif' }}
@@ -210,7 +216,9 @@ function NavBar() {
                     alt="Icon utilisateur"
                     className="h-24 w-24 rounded-full border-2 border-[#003f3e] object-cover"
                   />
-                  <h1 className="text-2xl font-bold text-[#00a292]">{pseudo}</h1>
+                  <h1 className="text-2xl font-bold text-[#00a292]">
+                    {pseudo}
+                  </h1>
                 </div>
               )}
 

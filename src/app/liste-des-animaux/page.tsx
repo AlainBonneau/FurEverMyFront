@@ -4,7 +4,10 @@ import { useEffect } from 'react';
 import { Search } from 'react-feather';
 
 import { IAnimal } from '@/src/@types/animal';
-import { actionInputFilter, actionInputSearch } from '@/src/lib/actions/animal.action';
+import {
+  actionInputFilter,
+  actionInputSearch,
+} from '@/src/lib/actions/animal.action';
 import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
 import { actionThunkAnimalList } from '@/src/lib/thunks/animal.thunk';
 

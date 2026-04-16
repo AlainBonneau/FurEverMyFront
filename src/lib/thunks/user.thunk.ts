@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import axiosInstance from '../axios/axios';
-import { RootState } from '../store';
+import type { RootState } from '../types/redux.types';
 
 // action pour afficher la liste des employés
 const actionThunkUserList = createAsyncThunk('user/GET_USERS', async () => {
@@ -36,4 +36,9 @@ const actionUserSoftDelete = createAsyncThunk(
   }
 );
 
-export { actionThunkUserList, actionThunkUserById, actionUserSoftDelete, actionUserAdd };
+export {
+  actionThunkUserList,
+  actionThunkUserById,
+  actionUserSoftDelete,
+  actionUserAdd,
+};

@@ -14,7 +14,7 @@ const position = {
 
 const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
-const GoogleMaps = () => {
+function GoogleMaps() {
   return (
     <section className="flex w-full max-w-4xl flex-col items-center xl:w-1/2">
       <img
@@ -48,6 +48,6 @@ const GoogleMaps = () => {
       )}
     </section>
   );
-};
+}
 
 export default GoogleMaps;

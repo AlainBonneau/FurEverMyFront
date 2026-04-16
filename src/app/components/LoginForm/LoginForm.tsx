@@ -3,7 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { redirect } from 'next/navigation';
 
-import { actionChangeCredential, actionRememberMe } from '@/src/lib/actions/auth.action';
+import {
+  actionChangeCredential,
+  actionRememberMe,
+} from '@/src/lib/actions/auth.action';
 import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
 import { thunkActionLogin } from '@/src/lib/thunks/auth.thunk';
 
@@ -30,7 +33,9 @@ function LoginForm() {
       onSubmit={async (e) => {
         e.preventDefault();
         dispatch(actionChangeCredential({ name: 'email', value: emailInput }));
-        dispatch(actionChangeCredential({ name: 'password', value: passwordInput }));
+        dispatch(
+          actionChangeCredential({ name: 'password', value: passwordInput })
+        );
         dispatch(actionRememberMe(checkboxInput));
 
         await dispatch(thunkActionLogin());
@@ -42,7 +47,10 @@ function LoginForm() {
       <h1 className="text-center text-4xl font-extrabold">Connexion</h1>
 
       <div className="w-full">
-        <label className="mb-2 block text-sm font-medium text-slate-600" htmlFor="email-login-form">
+        <label
+          className="mb-2 block text-sm font-medium text-slate-600"
+          htmlFor="email-login-form"
+        >
           Email
         </label>
         <input
@@ -61,7 +69,10 @@ function LoginForm() {
       </div>
 
       <div className="w-full">
-        <label className="mb-2 block text-sm font-medium text-slate-600" htmlFor="password-login-form">
+        <label
+          className="mb-2 block text-sm font-medium text-slate-600"
+          htmlFor="password-login-form"
+        >
           Mot de passe
         </label>
         <input
@@ -80,7 +91,10 @@ function LoginForm() {
       </div>
 
       <div className="flex w-full items-center justify-start">
-        <label htmlFor="checkbox-login-form" className="inline-flex cursor-pointer items-center gap-2 text-sm text-slate-700">
+        <label
+          htmlFor="checkbox-login-form"
+          className="inline-flex cursor-pointer items-center gap-2 text-sm text-slate-700"
+        >
           <input
             type="checkbox"
             id="checkbox-login-form"

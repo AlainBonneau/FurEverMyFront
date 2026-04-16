@@ -3,7 +3,6 @@ import { createReducer } from '@reduxjs/toolkit';
 
 import {
   actionChangeCredential,
-  actionLogIn,
   actionLogOut,
   actionRememberMe,
   actionSetConnectedUser,

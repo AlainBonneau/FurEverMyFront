@@ -15,7 +15,8 @@ export function Slider({ imageUrls }: SliderProps) {
 
   useEffect(() => {
     if (scrollContainerRef.current) {
-      const firstImage = scrollContainerRef.current.querySelector('.img-slider');
+      const firstImage =
+        scrollContainerRef.current.querySelector('.img-slider');
       if (firstImage) {
         setImageWidth(firstImage.clientWidth);
       }

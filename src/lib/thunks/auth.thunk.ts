@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { addToLocalStorage } from '@/src/localstorage/localStorage';
 
 import axiosInstance, { addTokenJwtToAxiosInstance } from '../axios/axios';
-import { RootState } from '../store';
+import type { RootState } from '../types/redux.types';
 import { addToSessionStorage } from '@/src/sessionStorage/sessionStorage';
 
 // action thunk pour la connexion

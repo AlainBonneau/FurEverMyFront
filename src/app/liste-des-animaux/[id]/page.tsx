@@ -11,7 +11,10 @@ import {
   actionSetAnimalId,
 } from '@/src/lib/actions/animal.action';
 import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
-import { actionThunkAnimalById, actionThunkUpdateAnimal } from '@/src/lib/thunks/animal.thunk';
+import {
+  actionThunkAnimalById,
+  actionThunkUpdateAnimal,
+} from '@/src/lib/thunks/animal.thunk';
 
 import Loader from '../../components/Loader/Loader';
 
@@ -102,7 +105,10 @@ export default function DetailAnimal() {
 
         <div className="grid w-full max-w-4xl gap-4 md:grid-cols-2">
           <div className="flex flex-col gap-4">
-            <label className="text-sm font-medium text-slate-600" htmlFor="animal-name">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="animal-name"
+            >
               Nom
             </label>
             <input
@@ -115,7 +121,10 @@ export default function DetailAnimal() {
               className={inputClassName}
             />
 
-            <label className="text-sm font-medium text-slate-600" htmlFor="animal-gender">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="animal-gender"
+            >
               Genre
             </label>
             <input
@@ -127,7 +136,10 @@ export default function DetailAnimal() {
               className={inputClassName}
             />
 
-            <label className="text-sm font-medium text-slate-600" htmlFor="animal-birthdate">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="animal-birthdate"
+            >
               Naissance
             </label>
             <input
@@ -135,14 +147,19 @@ export default function DetailAnimal() {
               readOnly={isReadOnly}
               type="date"
               name="birthdate"
-              value={isReadOnly ? formatDateForInput(animal.birthdate) : birthdate}
+              value={
+                isReadOnly ? formatDateForInput(animal.birthdate) : birthdate
+              }
               onChange={(e) => setBirthdate(e.target.value)}
               className={inputClassName}
             />
           </div>
 
           <div className="flex flex-col gap-4">
-            <label className="text-sm font-medium text-slate-600" htmlFor="animal-health">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="animal-health"
+            >
               Santé
             </label>
             <input
@@ -155,7 +172,10 @@ export default function DetailAnimal() {
               className={inputClassName}
             />
 
-            <label className="text-sm font-medium text-slate-600" htmlFor="animal-arrival">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="animal-arrival"
+            >
               Date d&apos;arrivée
             </label>
             <input
@@ -163,12 +183,19 @@ export default function DetailAnimal() {
               readOnly={isReadOnly}
               type="date"
               name="arrival-date"
-              value={isReadOnly ? formatDateForInput(animal.arrival_date) : arrivalDate}
+              value={
+                isReadOnly
+                  ? formatDateForInput(animal.arrival_date)
+                  : arrivalDate
+              }
               onChange={(e) => setArrivalDate(e.target.value)}
               className={inputClassName}
             />
 
-            <label className="text-sm font-medium text-slate-600" htmlFor="animal-leaving">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="animal-leaving"
+            >
               Date de sortie
             </label>
             <input
@@ -176,12 +203,19 @@ export default function DetailAnimal() {
               readOnly={isReadOnly}
               type="date"
               name="leaving-date"
-              value={isReadOnly ? formatDateForInput(animal.leaving_date) : leavingDate}
+              value={
+                isReadOnly
+                  ? formatDateForInput(animal.leaving_date)
+                  : leavingDate
+              }
               onChange={(e) => setLeavingDate(e.target.value)}
               className={inputClassName}
             />
 
-            <label className="text-sm font-medium text-slate-600" htmlFor="animal-about">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="animal-about"
+            >
               À propos
             </label>
             <textarea
@@ -194,7 +228,10 @@ export default function DetailAnimal() {
             />
 
             {(role === 'Employé' || role === 'Admin') && (
-              <label className="inline-flex items-center gap-3 text-sm font-medium text-slate-700" htmlFor="animal-active">
+              <label
+                className="inline-flex items-center gap-3 text-sm font-medium text-slate-700"
+                htmlFor="animal-active"
+              >
                 <input
                   id="animal-active"
                   type="checkbox"

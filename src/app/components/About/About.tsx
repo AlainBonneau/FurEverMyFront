@@ -21,8 +21,8 @@ function About() {
         dévoué à offrir une seconde chance aux animaux dans le besoin. Notre
         mission est simple mais puissante : trouver des foyers aimants et
         permanents pour les animaux abandonnés et maltraités. Nous croyons
-        fermement que chaque animal mérite une vie remplie d&apos;amour, de soins
-        et de bonheur.
+        fermement que chaque animal mérite une vie remplie d&apos;amour, de
+        soins et de bonheur.
       </p>
 
       <h2 className="mt-4 text-2xl font-bold underline md:text-3xl">

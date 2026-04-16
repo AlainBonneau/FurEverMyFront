@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../axios/axios';
-import { RootState } from '../store';
+import type { RootState } from '../types/redux.types';
 
 // action pour afficher la liste des animaux
 const actionThunkAnimalList = createAsyncThunk(

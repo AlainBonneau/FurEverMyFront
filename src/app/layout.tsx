@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import AuthProvider from './components/AuthProvider/AuthProvider';
 
 import StoreProvider from './StoreProvider';
-import { Footer } from './components/Footer/Footer';
+import Footer from './components/Footer/Footer';
 import NavBar from './components/NavBar/NavBar';
 import './styles/globals.css';
 

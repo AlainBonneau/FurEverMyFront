@@ -8,7 +8,6 @@ import {
 import {
   actionSetConfirmPassword,
   actionSetUser,
-  actionSetUserId,
 } from '../actions/user.action';
 
 interface InitialState {
@@ -63,7 +62,7 @@ const userReducer = createReducer(initialState, (builder) => {
         (user: IUser) => user.is_active === true
       );
     })
-    .addCase(actionThunkUserList.rejected, (state, action) => {
+    .addCase(actionThunkUserList.rejected, (state) => {
       state.isloading = false;
     })
     .addCase(actionThunkUserById.pending, (state) => {
@@ -76,10 +75,10 @@ const userReducer = createReducer(initialState, (builder) => {
       const tokenPayload = JSON.parse(atob(arrayToken[1]));
       state.user = tokenPayload;
     })
-    .addCase(actionThunkUserById.rejected, (state, action) => {
+    .addCase(actionThunkUserById.rejected, (state) => {
       state.isloading = false;
     })
-    .addCase(actionUserSoftDelete.fulfilled, (state, action) => {
+    .addCase(actionUserSoftDelete.fulfilled, (state) => {
       state.remove = true;
       state.user = {
         id: 0,

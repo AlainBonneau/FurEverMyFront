@@ -6,7 +6,10 @@ import { Plus, Settings, X } from 'react-feather';
 
 import { actionSetUser } from '@/src/lib/actions/user.action';
 import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
-import { actionThunkUserList, actionUserSoftDelete } from '@/src/lib/thunks/user.thunk';
+import {
+  actionThunkUserList,
+  actionUserSoftDelete,
+} from '@/src/lib/thunks/user.thunk';
 
 import AddAccountModal from '../components/AddAccountModal/AddAccountModal';
 import Loader from '../components/Loader/Loader';
@@ -75,7 +78,9 @@ function UserEdit() {
                   type="button"
                   className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-slate-700 text-white transition hover:bg-rose-600"
                   onClick={async () => {
-                    dispatch(actionSetUser({ name: 'email', value: user.email }));
+                    dispatch(
+                      actionSetUser({ name: 'email', value: user.email })
+                    );
                     await dispatch(actionUserSoftDelete());
                   }}
                 >

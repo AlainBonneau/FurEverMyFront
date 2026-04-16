@@ -100,8 +100,13 @@ function AccountPage() {
   };
 
   return (
-    <form className="flex flex-col items-center px-4 py-6 md:px-8 md:py-10" onSubmit={handleSave}>
-      <h1 className="pb-6 text-4xl font-extrabold md:pb-10 md:text-5xl">Profil</h1>
+    <form
+      className="flex flex-col items-center px-4 py-6 md:px-8 md:py-10"
+      onSubmit={handleSave}
+    >
+      <h1 className="pb-6 text-4xl font-extrabold md:pb-10 md:text-5xl">
+        Profil
+      </h1>
 
       <div className="flex w-full max-w-6xl flex-col items-center gap-6 md:flex-row md:items-start md:justify-center">
         <div className="relative h-[220px] w-[220px] overflow-hidden rounded-full border-4 border-white shadow-md md:h-[300px] md:w-[300px]">
@@ -116,7 +121,10 @@ function AccountPage() {
 
         <div className="grid w-full gap-4 md:grid-cols-3">
           <div className="flex flex-col gap-4">
-            <label className="text-sm font-medium text-slate-600" htmlFor="account-email">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="account-email"
+            >
               Email
             </label>
             <input
@@ -129,7 +137,10 @@ function AccountPage() {
               onChange={(e) => setEmail(e.target.value)}
             />
 
-            <label className="text-sm font-medium text-slate-600" htmlFor="account-firstname">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="account-firstname"
+            >
               Prénom
             </label>
             <input
@@ -142,7 +153,10 @@ function AccountPage() {
               onChange={(e) => setFirstname(e.target.value)}
             />
 
-            <label className="text-sm font-medium text-slate-600" htmlFor="account-lastname">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="account-lastname"
+            >
               Nom
             </label>
             <input
@@ -157,7 +171,10 @@ function AccountPage() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <label className="text-sm font-medium text-slate-600" htmlFor="account-birthdate">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="account-birthdate"
+            >
               Naissance
             </label>
             <input
@@ -170,7 +187,10 @@ function AccountPage() {
               onChange={(e) => setBirthdate(e.target.value)}
             />
 
-            <label className="text-sm font-medium text-slate-600" htmlFor="account-password">
+            <label
+              className="text-sm font-medium text-slate-600"
+              htmlFor="account-password"
+            >
               Mot de passe
             </label>
             <input
@@ -184,7 +204,10 @@ function AccountPage() {
 
             {userRole === 'Admin' && (
               <>
-                <label className="text-sm font-medium text-slate-600" htmlFor="account-arrival-date">
+                <label
+                  className="text-sm font-medium text-slate-600"
+                  htmlFor="account-arrival-date"
+                >
                   Création du compte
                 </label>
                 <input
@@ -201,7 +224,10 @@ function AccountPage() {
 
           {userRole === 'Admin' && (
             <div className="flex flex-col gap-4">
-              <label className="text-sm font-medium text-slate-600" htmlFor="account-leaving-date">
+              <label
+                className="text-sm font-medium text-slate-600"
+                htmlFor="account-leaving-date"
+              >
                 Désactivation
               </label>
               <input
@@ -213,7 +239,10 @@ function AccountPage() {
                 value={user.leaving_date || ''}
               />
 
-              <label className="text-sm font-medium text-slate-600" htmlFor="account-role">
+              <label
+                className="text-sm font-medium text-slate-600"
+                htmlFor="account-role"
+              >
                 Rôle
               </label>
               <input
@@ -225,7 +254,10 @@ function AccountPage() {
                 value={user.role || ''}
               />
 
-              <label className="inline-flex items-center gap-3 pt-3 text-sm font-medium text-slate-700" htmlFor="account-active">
+              <label
+                className="inline-flex items-center gap-3 pt-3 text-sm font-medium text-slate-700"
+                htmlFor="account-active"
+              >
                 <input
                   id="account-active"
                   type="checkbox"
