@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 
 import image1 from 'public/img1.jpg';
@@ -11,8 +9,6 @@ import image6 from 'public/img6.jpg';
 import image7 from 'public/img7.jpg';
 import image8 from 'public/img8.jpg';
 import image9 from 'public/img9.jpg';
-import About from './components/About/About';
-import GoogleMaps from './components/GoogleMap/GoogleMap';
 import { Slider } from './components/Slider/Slider';
 
 const IMAGES = [
@@ -31,23 +27,18 @@ function IndexPage() {
   return (
     <>
       <div className="mt-6 flex items-center justify-around px-4 sm:mt-10">
-        {[1, 2].map((logo) => (
-          <div
-            key={logo}
-            className="group relative h-[110px] w-[110px] overflow-hidden rounded-full shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-xl sm:h-[140px] sm:w-[140px] lg:h-[180px] lg:w-[180px]"
-          >
-            <Image
-              src="/Logo.png"
-              alt="logo"
-              fill
-              sizes="(max-width: 640px) 110px, (max-width: 1024px) 140px, 180px"
-              className="rounded-full object-cover"
-            />
-          </div>
-        ))}
+        <div className="group relative h-[110px] w-[110px] overflow-hidden rounded-full shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-xl sm:h-[140px] sm:w-[140px] lg:h-[180px] lg:w-[180px]">
+          <Image
+            src="/Logo.png"
+            alt="logo"
+            fill
+            sizes="(max-width: 640px) 110px, (max-width: 1024px) 140px, 180px"
+            className="rounded-full object-cover"
+          />
+        </div>
       </div>
 
-      <section className="relative mx-auto mt-12 w-[90%] max-w-6xl rounded-2xl border-2 border-white bg-gradient-to-br from-[#003f3e] to-[#005a58] px-4 py-6 text-center shadow-2xl sm:mt-16 sm:px-8 sm:py-8 lg:mt-24">
+      <section className="relative mx-auto mt-12 w-[90%] max-w-6xl rounded-2xl border-2 border-white bg-gradient-to-br from-[#003f3e] to-[#005a58] px-4 py-6 text-center shadow-2xl sm:mt-16 sm:px-8 sm:py-8">
         <img
           src="/AnimalImg.png"
           alt=""
@@ -66,10 +57,7 @@ function IndexPage() {
 
       <Slider imageUrls={IMAGES} />
 
-      <div className="mx-auto mt-10 flex w-full max-w-[1800px] flex-col items-center gap-6 px-4 pb-10 xl:flex-row xl:items-start xl:justify-center">
-        <About />
-        <GoogleMaps />
-      </div>
+      {/* // TODO: Ajouter une section "À propos de nous" avec du texte et une image d'équipe. */}
     </>
   );
 }
