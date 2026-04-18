@@ -20,25 +20,71 @@ interface InitialState {
   remove: boolean;
 }
 
+const emptyUser: IUser = {
+  id: 0,
+  email: '',
+  lastname: '',
+  firstname: '',
+  birthdate: '',
+  password: '',
+  arrival_date: '',
+  leaving_date: '',
+  role: '',
+  is_active: true,
+};
+
 const initialState: InitialState = {
   users: [],
   deletedUsers: [],
-  user: {
-    id: 0,
-    email: '',
-    lastname: '',
-    firstname: '',
-    birthdate: '',
-    password: '',
-    arrival_date: '',
-    leaving_date: '',
-    role: '',
-    is_active: true,
-  },
+  user: emptyUser,
   confirmPassword: '',
   isloading: true,
   error: null,
   remove: false,
+};
+
+const mapUserPayload = (payload: unknown): IUser => {
+  if (typeof payload === 'string') {
+    try {
+      const arrayToken = payload.split('.');
+      if (arrayToken.length > 1) {
+        const tokenPayload = JSON.parse(atob(arrayToken[1])) as Partial<IUser>;
+        return {
+          ...emptyUser,
+          ...tokenPayload,
+          id: Number(tokenPayload.id ?? 0),
+          is_active: tokenPayload.is_active ?? true,
+        };
+      }
+    } catch (error) {
+      return emptyUser;
+    }
+  }
+
+  if (!payload || typeof payload !== 'object') {
+    return emptyUser;
+  }
+
+  const root = payload as Record<string, unknown>;
+  const raw =
+    root.user && typeof root.user === 'object'
+      ? (root.user as Partial<IUser>)
+      : (root as Partial<IUser>);
+
+  return {
+    ...emptyUser,
+    ...raw,
+    id: Number(raw.id ?? 0),
+    email: raw.email ?? '',
+    lastname: raw.lastname ?? '',
+    firstname: raw.firstname ?? '',
+    birthdate: raw.birthdate ?? '',
+    password: raw.password ?? '',
+    arrival_date: raw.arrival_date ?? '',
+    leaving_date: raw.leaving_date ?? '',
+    role: raw.role ?? '',
+    is_active: raw.is_active ?? true,
+  };
 };
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -70,28 +116,14 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionThunkUserById.fulfilled, (state, action) => {
       state.isloading = false;
-      const token = action.payload;
-      const arrayToken = token.split('.');
-      const tokenPayload = JSON.parse(atob(arrayToken[1]));
-      state.user = tokenPayload;
+      state.user = mapUserPayload(action.payload);
     })
     .addCase(actionThunkUserById.rejected, (state) => {
       state.isloading = false;
     })
     .addCase(actionUserSoftDelete.fulfilled, (state) => {
       state.remove = true;
-      state.user = {
-        id: 0,
-        email: '',
-        lastname: '',
-        firstname: '',
-        birthdate: '',
-        password: '',
-        arrival_date: '',
-        leaving_date: '',
-        role: '',
-        is_active: true,
-      };
+      state.user = emptyUser;
     });
 });
 

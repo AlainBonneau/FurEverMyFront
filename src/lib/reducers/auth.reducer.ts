@@ -1,16 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
+import type { ConnectedUser } from '@/src/@types/auth';
 
 import {
   actionChangeCredential,
   actionLogOut,
   actionRememberMe,
   actionSetConnectedUser,
-  actionSetToken,
 } from '../actions/auth.action';
-import { thunkActionLogin, thunkActionRegister } from '../thunks/auth.thunk';
-import { clearLocalStorage } from '@/src/localstorage/localStorage';
-import { clearSessionStorage } from '@/src/sessionStorage/sessionStorage';
-import type { ConnectedUser } from '@/src/@types/auth';
+import {
+  thunkActionLogin,
+  thunkActionLogout,
+  thunkActionRegister,
+  thunkActionRestoreSession,
+} from '../thunks/auth.thunk';
 
 interface InitialState {
   credentials: {
@@ -18,7 +20,6 @@ interface InitialState {
     password: string;
   };
   connectedUser: ConnectedUser;
-  token?: string;
   remember: boolean;
   isloading: boolean;
   message: string;
@@ -39,33 +40,16 @@ const initialState: InitialState = {
     password: '',
   },
   connectedUser: emptyConnectedUser,
-  token: undefined,
   remember: false,
   isloading: false,
   message: '',
   modified: false,
 };
 
-const decodeJwtUser = (token: string): ConnectedUser => {
-  try {
-    const arrayToken = token.split('.');
-
-    if (arrayToken.length < 2) {
-      return emptyConnectedUser;
-    }
-
-    const decoded = JSON.parse(atob(arrayToken[1])) as Partial<ConnectedUser>;
-
-    return {
-      avatar: decoded.avatar ?? '',
-      userId: decoded.userId ?? 0,
-      lastname: decoded.lastname ?? '',
-      firstname: decoded.firstname ?? '',
-      role: decoded.role,
-    };
-  } catch (error) {
-    return emptyConnectedUser;
-  }
+const resetAuthState = (state: InitialState) => {
+  state.connectedUser = emptyConnectedUser;
+  state.message = '';
+  state.modified = false;
 };
 
 const loginReducer = createReducer(initialState, (builder) => {
@@ -76,22 +60,12 @@ const loginReducer = createReducer(initialState, (builder) => {
     .addCase(actionRememberMe, (state, action) => {
       state.remember = action.payload;
     })
-    .addCase(actionSetToken, (state, action) => {
-      state.token = action.payload;
-    })
     .addCase(actionSetConnectedUser, (state, action) => {
       state.connectedUser = action.payload;
     })
     .addCase(actionLogOut, (state) => {
-      state.token = undefined;
-      state.connectedUser = emptyConnectedUser;
-      state.message = '';
-      state.modified = false;
-
-      clearSessionStorage();
-      clearLocalStorage();
+      resetAuthState(state);
     })
-
     .addCase(thunkActionRegister.pending, (state) => {
       state.isloading = true;
       state.message = '';
@@ -107,22 +81,41 @@ const loginReducer = createReducer(initialState, (builder) => {
       state.message = 'Erreur lors de l’inscription';
       state.modified = false;
     })
-
     .addCase(thunkActionLogin.pending, (state) => {
       state.isloading = true;
       state.message = '';
     })
     .addCase(thunkActionLogin.fulfilled, (state, action) => {
       state.isloading = false;
-      state.token = action.payload;
-      state.connectedUser = decodeJwtUser(action.payload);
+      state.connectedUser = action.payload;
       state.message = 'Connexion réussie';
     })
     .addCase(thunkActionLogin.rejected, (state) => {
       state.isloading = false;
       state.message = 'Erreur de connexion';
-      state.token = undefined;
-      state.connectedUser = emptyConnectedUser;
+      resetAuthState(state);
+    })
+    .addCase(thunkActionRestoreSession.pending, (state) => {
+      state.isloading = true;
+    })
+    .addCase(thunkActionRestoreSession.fulfilled, (state, action) => {
+      state.isloading = false;
+      state.connectedUser = action.payload;
+    })
+    .addCase(thunkActionRestoreSession.rejected, (state) => {
+      state.isloading = false;
+      resetAuthState(state);
+    })
+    .addCase(thunkActionLogout.pending, (state) => {
+      state.isloading = true;
+    })
+    .addCase(thunkActionLogout.fulfilled, (state) => {
+      state.isloading = false;
+      resetAuthState(state);
+    })
+    .addCase(thunkActionLogout.rejected, (state) => {
+      state.isloading = false;
+      resetAuthState(state);
     });
 });
 

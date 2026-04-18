@@ -8,10 +8,6 @@ export const actionChangeCredential = createAction<{
 
 export const actionRememberMe = createAction<boolean>('auth/REMEMBER_ME');
 
-export const actionSetToken = createAction<string | undefined>(
-  'auth/SET_TOKEN'
-);
-
 export const actionSetConnectedUser = createAction<ConnectedUser>(
   'auth/SET_CONNECTED_USER'
 );

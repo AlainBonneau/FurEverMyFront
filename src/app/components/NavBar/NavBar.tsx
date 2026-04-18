@@ -15,9 +15,9 @@ import {
   X,
 } from 'react-feather';
 
-import { actionLogOut } from '@/src/lib/actions/auth.action';
 import { actionModifyNav } from '@/src/lib/actions/home.action';
 import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
+import { thunkActionLogout } from '@/src/lib/thunks/auth.thunk';
 
 function NavBar() {
   const dispatch = useAppDispatch();
@@ -156,7 +156,7 @@ function NavBar() {
                   href="/"
                   className={`${actionButtonClass} inline-flex items-center gap-2`}
                   onClick={() => {
-                    dispatch(actionLogOut());
+                    dispatch(thunkActionLogout());
                     setUserMenuOpen(false);
                   }}
                 >
@@ -320,7 +320,7 @@ function NavBar() {
                 href="/"
                 className="mb-8 inline-flex items-center gap-3 rounded-lg border border-[#00a292] px-6 py-3 text-xl font-semibold text-[#006f64] transition hover:bg-[#00a292] hover:text-white"
                 onClick={() => {
-                  dispatch(actionLogOut());
+                  dispatch(thunkActionLogout());
                   setIsMenuOpen(false);
                 }}
               >

@@ -1,39 +1,120 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import type { ConnectedUser } from '@/src/@types/auth';
 
-import { addToLocalStorage } from '@/src/localstorage/localStorage';
-import { addToSessionStorage } from '@/src/sessionStorage/sessionStorage';
-
-import axiosInstance, { addTokenJwtToAxiosInstance } from '../axios/axios';
+import axiosInstance from '../axios/axios';
 import type { RootState } from '../types/redux.types';
 
-type LoginResponse = {
-  tokenJWT: string;
-  refreshTokenJWT: string;
+type ApiUserShape = Partial<ConnectedUser> & {
+  id?: number;
+  userId?: number;
+  firstname?: string;
+  lastname?: string;
+  role?: ConnectedUser['role'];
+  avatar?: string;
+};
+
+type LoginPayload = {
+  email: string;
+  password: string;
+  remember?: boolean;
+};
+
+const emptyConnectedUser: ConnectedUser = {
+  avatar: '',
+  userId: 0,
+  lastname: '',
+  firstname: '',
+  role: undefined,
+};
+
+const decodeJwtUser = (token: string): ConnectedUser => {
+  try {
+    const arrayToken = token.split('.');
+
+    if (arrayToken.length < 2) {
+      return emptyConnectedUser;
+    }
+
+    const decoded = JSON.parse(atob(arrayToken[1])) as Partial<ConnectedUser>;
+
+    return {
+      avatar: decoded.avatar ?? '',
+      userId: decoded.userId ?? 0,
+      lastname: decoded.lastname ?? '',
+      firstname: decoded.firstname ?? '',
+      role: decoded.role,
+    };
+  } catch (error) {
+    return emptyConnectedUser;
+  }
+};
+
+const mapApiUserToConnectedUser = (payload: unknown): ConnectedUser => {
+  // Compatibilité avec l'ancien backend qui renvoyait un JWT.
+  if (typeof payload === 'string') {
+    return decodeJwtUser(payload);
+  }
+
+  if (!payload || typeof payload !== 'object') {
+    return emptyConnectedUser;
+  }
+
+  const root = payload as Record<string, unknown>;
+
+  const rawUser =
+    root.user && typeof root.user === 'object'
+      ? (root.user as ApiUserShape)
+      : (root as ApiUserShape);
+
+  return {
+    avatar: rawUser.avatar ?? '',
+    userId: Number(rawUser.userId ?? rawUser.id ?? 0),
+    lastname: rawUser.lastname ?? '',
+    firstname: rawUser.firstname ?? '',
+    role: rawUser.role,
+  };
+};
+
+const fetchConnectedUserFromCookie = async (): Promise<ConnectedUser> => {
+  const response = await axiosInstance.get('/user');
+  return mapApiUserToConnectedUser(response.data);
 };
 
 export const thunkActionLogin = createAsyncThunk<
-  string,
+  ConnectedUser,
   void,
   { state: RootState }
 >('login/LOGIN_CHECK', async (_, thunkAPI) => {
   const state = thunkAPI.getState();
 
-  const response = await axiosInstance.post<LoginResponse>('/auth/login', {
-    email: state.auth.credentials.email,
-    password: state.auth.credentials.password,
-  });
+  try {
+    const payload: LoginPayload = {
+      email: state.auth.credentials.email,
+      password: state.auth.credentials.password,
+    };
 
-  const { tokenJWT, refreshTokenJWT } = response.data;
+    await axiosInstance.post('/auth/login', payload);
 
-  addTokenJwtToAxiosInstance(tokenJWT);
-
-  if (state.auth.remember) {
-    addToLocalStorage(refreshTokenJWT);
+    return await fetchConnectedUserFromCookie();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    throw error instanceof Error && error.message
+      ? new Error(error.message)
+      : new Error('Une erreur est survenue lors de la connexion.');
   }
+});
 
-  addToSessionStorage(tokenJWT);
+export const thunkActionRestoreSession = createAsyncThunk<ConnectedUser>(
+  'auth/RESTORE_SESSION',
+  async () => fetchConnectedUserFromCookie()
+);
 
-  return tokenJWT;
+export const thunkActionLogout = createAsyncThunk('auth/LOGOUT', async () => {
+  try {
+    await axiosInstance.post('/auth/logout');
+  } catch (error) {
+    // Nettoyage local même si l'API de logout échoue.
+  }
 });
 
 export const thunkActionRegister = createAsyncThunk<

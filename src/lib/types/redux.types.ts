@@ -29,7 +29,6 @@ export interface RootState {
       firstname: string;
       role?: 'Bénévole' | 'Employé' | 'Admin';
     };
-    token?: string;
     remember: boolean;
     isloading: boolean;
     message: string;
